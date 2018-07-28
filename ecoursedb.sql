@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Dumping data for table ecoursedb.admin: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` (`id_admin`, `id_role`, `name`, `email`, `password`, `photo_url`, `created_at`) VALUES
-	(1, 1, 'Muhamad Syihabudin', 'syihab@gmail.com', 'syihab', 'http://localhost/ecourse/assets/image/Admin/78976eaa1038decea46d3543318f3a28.jpg', '2018-07-27 14:03:05'),
-	(2, 1, 'admin', 'admin@coderealm.com', 'admincoderealm', '', '2017-12-14 21:58:52');
+	(1, 1, 'Muhamad Syihabudin', 'syihab@gmail.com', 'syihab', 'http://localhost/ecourse/assets/image/Admin/78976eaa1038decea46d3543318f3a28.jpg', '2018-07-27 14:03:05');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.badge
@@ -72,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `badgenuser` (
   CONSTRAINT `fk_mmbadge_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table ecoursedb.badgenuser: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.badgenuser: ~2 rows (approximately)
 /*!40000 ALTER TABLE `badgenuser` DISABLE KEYS */;
 INSERT INTO `badgenuser` (`id`, `id_badge`, `id_user`, `date_received`) VALUES
 	(1, 1, 1, '0000-00-00 00:00:00'),
@@ -126,21 +125,21 @@ INSERT INTO `course_lesson` (`id_course_lesson`, `id_course_path`, `name_lesson`
 	(2, 1, 'Front-end Formations', 'Learn the latest versions of HTML and CSS.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/frontend-formation.png', '2018-07-26 00:13:28'),
 	(3, 2, 'CSS Cross-Country', 'Explore the fundamentals of CSS.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/css.png', '2018-07-26 00:13:32'),
 	(4, 2, 'Journey Into Mobile', 'Learn mobile-first, adaptive, and responsive web design.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/css-mobile.png', '2018-07-26 00:13:36'),
-	(5, 3, 'JavaScript Road Trip Part 1', 'An introduction to the very basics of the JavaScript language.', 'http://localhost/CodeRealm/skills/javascript', 'http://localhost/CodeRealm/assets/image/Course/javascript-01.png', '2017-12-05 20:06:36'),
-	(6, 3, 'JavaScript Road Trip Part 2', 'A continued introduction to the very basics of the JavaScript language.', 'http://localhost/CodeRealm/skills/javascript', 'http://localhost/CodeRealm/assets/image/Course/javascript-02.png', '2017-12-05 20:06:56'),
-	(7, 3, 'JavaScript Road Trip Part 3', 'Build important intermediate skills within the JavaScript language.', 'http://localhost/CodeRealm/skills/javascript', 'http://localhost/CodeRealm/assets/image/Course/javascript-03.png', '2017-12-05 20:07:17'),
-	(8, 4, 'Ruby Bits', 'Learn the core bits every Ruby programmer should know.', 'http://localhost/CodeRealm/skills/ruby', 'http://localhost/CodeRealm/assets/image/Course/ruby-bits.png', '2017-12-05 20:08:06'),
-	(9, 4, 'Ruby Bits Part 2', 'Learn the advanced bits of expert Ruby programming.', 'http://localhost/CodeRealm/skills/ruby', 'http://localhost/CodeRealm/assets/image/Course/ruby-bits-2.png', '2017-12-05 20:08:27'),
-	(10, 5, 'Try PHP', 'Begin building a foundation in one of the most widely used programming languages.', 'http://localhost/CodeRealm/skills/php', 'http://localhost/CodeRealm/assets/image/Course/try-php.png', '2017-12-05 20:09:03'),
-	(11, 5, 'Close Encounters With PHP', 'Look to the skies and work with forms, validation, and custom libraries.', 'http://localhost/CodeRealm/skills/php', 'http://localhost/CodeRealm/assets/image/Course/close-php.png', '2017-12-05 20:09:33'),
-	(12, 6, 'Try Python', 'Begin scaling up your Python knowledge and open the door to plentiful programming possibilities.', 'http://localhost/CodeRealm/skills/python', 'http://localhost/CodeRealm/assets/image/Course/try-python.png', '2017-12-05 20:10:19'),
-	(13, 6, 'Flying Through Python', 'Continue learning the basics of Python and use them to manage our circus\' Spam Van food truck.', 'http://localhost/CodeRealm/skills/python', 'http://localhost/CodeRealm/assets/image/Course/flying-through-python.png', '2017-12-05 20:10:39'),
-	(14, 7, 'Try Git', 'Be introduced to the basic concepts of Git version control.', 'http://localhost/CodeRealm/skills/git', 'http://localhost/CodeRealm/assets/image/Course/try-git.png', '2017-12-05 20:11:46'),
-	(15, 7, 'Git Real', 'Get a more advanced introduction and guide to Git.', 'http://localhost/CodeRealm/skills/git', 'http://localhost/CodeRealm/assets/image/Course/git-real.png', '2017-12-05 20:12:04'),
-	(16, 7, 'Git Real 2', 'Learn more advanced Git techniques.', 'http://localhost/CodeRealm/skills/git', 'http://localhost/CodeRealm/assets/image/Course/git-real-2.png', '2017-12-05 20:12:22'),
-	(17, 7, 'Mastering Github', 'Better collaboration through GitHub.', 'http://localhost/CodeRealm/skills/git', 'http://localhost/CodeRealm/assets/image/Course/mastering-github.png', '2017-12-05 20:12:42'),
-	(18, 8, 'Try SQL', 'Learn basic database manipulation with SQL.', 'http://localhost/CodeRealm/skills/database', 'http://localhost/CodeRealm/assets/image/Course/try-sql.png', '2017-12-05 20:13:44'),
-	(19, 8, 'The Sequel to SQL', 'Move beyond the basics and learn the most powerful features of relational databases.', 'http://localhost/CodeRealm/skills/database', 'http://localhost/CodeRealm/assets/image/Course/sequel-sql.png', '2017-12-05 20:14:10');
+	(5, 3, 'JavaScript Road Trip Part 1', 'An introduction to the very basics of the JavaScript language.', 'http://localhost/ecourse/skills/javascript', 'http://localhost/ecourse/assets/image/Course/javascript-01.png', '2018-07-28 22:32:31'),
+	(6, 3, 'JavaScript Road Trip Part 2', 'A continued introduction to the very basics of the JavaScript language.', 'http://localhost/ecourse/skills/javascript', 'http://localhost/ecourse/assets/image/Course/javascript-02.png', '2018-07-28 22:32:41'),
+	(7, 3, 'JavaScript Road Trip Part 3', 'Build important intermediate skills within the JavaScript language.', 'http://localhost/ecourse/skills/javascript', 'http://localhost/ecourse/assets/image/Course/javascript-03.png', '2018-07-28 22:32:44'),
+	(8, 4, 'Ruby Bits', 'Learn the core bits every Ruby programmer should know.', 'http://localhost/ecourse/skills/ruby', 'http://localhost/ecourse/assets/image/Course/ruby-bits.png', '2018-07-28 22:32:48'),
+	(9, 4, 'Ruby Bits Part 2', 'Learn the advanced bits of expert Ruby programming.', 'http://localhost/ecourse/skills/ruby', 'http://localhost/ecourse/assets/image/Course/ruby-bits-2.png', '2018-07-28 22:32:51'),
+	(10, 5, 'Try PHP', 'Begin building a foundation in one of the most widely used programming languages.', 'http://localhost/ecourse/skills/php', 'http://localhost/ecourse/assets/image/Course/try-php.png', '2018-07-28 22:32:54'),
+	(11, 5, 'Close Encounters With PHP', 'Look to the skies and work with forms, validation, and custom libraries.', 'http://localhost/ecourse/skills/php', 'http://localhost/ecourse/assets/image/Course/close-php.png', '2018-07-28 22:32:57'),
+	(12, 6, 'Try Python', 'Begin scaling up your Python knowledge and open the door to plentiful programming possibilities.', 'http://localhost/ecourse/skills/python', 'http://localhost/ecourse/assets/image/Course/try-python.png', '2018-07-28 22:33:00'),
+	(13, 6, 'Flying Through Python', 'Continue learning the basics of Python and use them to manage our circus\' Spam Van food truck.', 'http://localhost/ecourse/skills/python', 'http://localhost/ecourse/assets/image/Course/flying-through-python.png', '2018-07-28 22:33:04'),
+	(14, 7, 'Try Git', 'Be introduced to the basic concepts of Git version control.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/try-git.png', '2018-07-28 22:33:07'),
+	(15, 7, 'Git Real', 'Get a more advanced introduction and guide to Git.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/git-real.png', '2018-07-28 22:33:11'),
+	(16, 7, 'Git Real 2', 'Learn more advanced Git techniques.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/git-real-2.png', '2018-07-28 22:33:14'),
+	(17, 7, 'Mastering Github', 'Better collaboration through GitHub.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/mastering-github.png', '2018-07-28 22:33:16'),
+	(18, 8, 'Try SQL', 'Learn basic database manipulation with SQL.', 'http://localhost/ecourse/skills/database', 'http://localhost/ecourse/assets/image/Course/try-sql.png', '2018-07-28 22:33:20'),
+	(19, 8, 'The Sequel to SQL', 'Move beyond the basics and learn the most powerful features of relational databases.', 'http://localhost/ecourse/skills/database', 'http://localhost/ecourse/assets/image/Course/sequel-sql.png', '2018-07-28 22:33:23');
 /*!40000 ALTER TABLE `course_lesson` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.course_path
@@ -180,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `enroll_course` (
   CONSTRAINT `enroll_course_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.enroll_course: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.enroll_course: ~2 rows (approximately)
 /*!40000 ALTER TABLE `enroll_course` DISABLE KEYS */;
 INSERT INTO `enroll_course` (`id_enroll_course`, `id_course`, `id_user`, `enroll_status`) VALUES
 	(1, 1, 1, 1),
@@ -201,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `enroll_lesson` (
   CONSTRAINT `fk_mmenrollcourse_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table ecoursedb.enroll_lesson: ~2 rows (approximately)
+-- Dumping data for table ecoursedb.enroll_lesson: ~0 rows (approximately)
 /*!40000 ALTER TABLE `enroll_lesson` DISABLE KEYS */;
 /*!40000 ALTER TABLE `enroll_lesson` ENABLE KEYS */;
 
@@ -213,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `friend` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.friend: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.friend: ~1 rows (approximately)
 /*!40000 ALTER TABLE `friend` DISABLE KEYS */;
 INSERT INTO `friend` (`id`, `ida`, `idb`) VALUES
 	(1, 1, 2);
@@ -235,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `lecture` (
   CONSTRAINT `lecture_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.lecture: ~3 rows (approximately)
+-- Dumping data for table ecoursedb.lecture: ~1 rows (approximately)
 /*!40000 ALTER TABLE `lecture` DISABLE KEYS */;
 INSERT INTO `lecture` (`id_lecture`, `id_role`, `name`, `email`, `password`, `photo_url`, `created_at`) VALUES
 	(1, 2, 'Muhamad Syihabudin', 'syihablecture@gmail.com', 'syihablecture', 'http://localhost/ecourse/assets/image/Lecture/1.jpg', '2018-07-28 20:26:49');
@@ -402,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.user: ~3 rows (approximately)
+-- Dumping data for table ecoursedb.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id_user`, `id_role`, `name`, `email`, `username`, `password`, `photo_url`, `Avatar`, `created_at`) VALUES
 	(1, 3, 'Muhamad Syihabudin', 'syihab@gmail.com', 'syihab', 'syihab', 'http://localhost/ecourse/assets/image/User/rasyadh.jpg', 'Yuuki Yuuki-1', '2018-07-28 20:24:39'),
@@ -424,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`users_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.users: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.users: ~1 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`users_id`, `user_id`, `var_key`, `status`, `is_deleted`, `name`, `password`, `email`, `profile_pic`, `user_type`) VALUES
 	(1, '1', '', 'active', '0', 'admin', '$2y$10$SBPAe/GEVj1qvvo22D9lLuS5Ob2dlMjCoquz6XDYWp2JLe7QFCk6e', 'syehab94@gmail.com', '78976eaa1038decea46d3543318f3a28_1532622790.jpg', 'admin');
