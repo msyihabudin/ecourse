@@ -24,7 +24,7 @@
                             <h3><?= $path['title_path']; ?></h3>
                             <p><?= $path['description']; ?></p>
 
-                            <button class="btn btn-primary" id="add">Add New Lesson</button>
+                            <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Lesson</button>
                             <br /><br />
 
                             <table class="table" id="tables">

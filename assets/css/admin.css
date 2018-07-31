@@ -1,5 +1,5 @@
 /** Typhography **/
-body {
+/*body {
     color: #575a5b;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
@@ -17,12 +17,10 @@ h1, h2, h3, h4, h5, h6, p {
     color: #ffffff;
 }
 
-/** Global **/
 #logo-code-realm {
     margin: 30px;
 }
 
-/** Override Semantic UI */
 .ui.button {
     border-radius: 2.285714rem;
 }
@@ -31,7 +29,23 @@ h1, h2, h3, h4, h5, h6, p {
     border-radius: 2.285714rem;
 }
 
-/** Content **/
 .main {
     padding: 20px;
+}*/
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }

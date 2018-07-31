@@ -33,7 +33,7 @@
                             </div>
                             <br />
 
-                            <button class="btn btn-primary" id="add">Add New Path</button>
+                            <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Path</button>
                             <br /><br />
 
                             <table class="table" id="tables">

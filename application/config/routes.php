@@ -90,6 +90,7 @@ $route['notification'] = 'notification/index';
 // Sign In & Sign Out
 $route['admin'] = 'Admin/admin/index';
 $route['admin/signin'] = 'Admin/admin/signin';
+$route['admin/auth_user'] = 'Admin/admin/auth_user';
 $route['admin/signout'] = 'Admin/admin/signout';
 
 // Dashboard
@@ -101,3 +102,4 @@ $route['admin/courses/path/edit/(:any)'] = 'Admin/courses/edit_path';
 $route['admin/courses/path/lesson/(:any)'] = 'Admin/courses/lesson';
 $route['admin/courses/path/lesson/edit/(:any)'] = 'Admin/courses/edit_lesson';
 $route['admin/account'] = 'Admin/admin/account';
+$route['admin/user/add_edit/(:any)'] = 'Admin/user/addEdit';

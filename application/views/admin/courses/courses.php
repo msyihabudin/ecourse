@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                    <button class="btn btn-primary" id="add">Add New Course</button>
+                    <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Course</button>
                     <br /><br />
                         
                         <div class="table-responsive">

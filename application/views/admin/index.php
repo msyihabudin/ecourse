@@ -10,8 +10,13 @@ if (isset($this->session->userdata['admin_signed_in'])) {
             <div class="text-center p-t-20 p-b-20">
                 <span class="db"><h1 style="color: #fff;">Sign in to your Administrator</h1></span>
             </div>
+            <?php if($this->session->flashdata("messagePr")){?>
+            <div class="alert alert-info">      
+                <?php echo $this->session->flashdata("messagePr")?>
+            </div>
+            <?php } ?>
             <!-- Form -->
-            <?= form_open('admin/signin', 'class="form-horizontal m-t-20" id="loginform"'); ?>
+            <?= form_open('admin/auth_user', 'class="form-horizontal m-t-20" id="loginform"'); ?>
                 <div class="row p-b-30">
                     <div class="col-12">
                         <div class="input-group mb-3">
@@ -44,10 +49,13 @@ if (isset($this->session->userdata['admin_signed_in'])) {
         <div id="recoverform">
             <div class="text-center">
                 <span class="text-white">Enter your e-mail address below and we will send you instructions how to recover a password.</span>
+                <div class="callout callout-success">
+                    <h5 style='color:red;' class="fa fa-close">  <?php echo $this->session->flashdata('forgotpassword'); ?></h5>
+                </div>
             </div>
             <div class="row m-t-20">
                 <!-- Form -->
-                <form class="col-12" action="index.html">
+                <?= form_open('admin/forgetpassword', 'class="col-12"'); ?>
                     <!-- email -->
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
