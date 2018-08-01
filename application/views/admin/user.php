@@ -26,7 +26,7 @@
                         <?php } ?>
                         
                         <?php if(CheckPermission("users", "own_create")){ ?>
-                        <a href="<?= site_url('admin/user/add_edit');?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add User</a>
+                        <a href="<?= site_url('admin/user/add');?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add User</a>
                         <?php } ?>
                         <br /><br />
 
@@ -47,7 +47,7 @@
                                         <td><?= $user->name; ?></td>
                                         <td><?= $user->email; ?></td>
                                         <td>
-                                            <a href="<?= site_url('admin/user/add_edit/'.$user->users_id); ?>"><i class="fas fa-edit"></i></a>
+                                            <a href="<?= site_url('admin/user/edit/'.$user->users_id); ?>"><i class="fas fa-edit"></i></a>
                                             <a href="<?= site_url('admin/user/delete/'.$user->users_id); ?>"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>

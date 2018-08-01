@@ -138,7 +138,7 @@ class AdminModel extends CI_Model {
     function check_exists($table='', $colom='',$colomValue=''){
         $this->db->where($colom, $colomValue);
         $res = $this->db->get($table)->row();
-        if(!empty($res)){ return false;} else{ return true;}
+        if(!empty($res)){ return false;} else { return true;}
     }
 
     function getTemplate($code){
