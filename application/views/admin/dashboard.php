@@ -41,14 +41,7 @@
                                                    <h5 class="m-b-0 m-t-5"><?= $dashboard[0]['numUser'] ?></h5>
                                                    <small class="font-light">Total Users</small>
                                                 </div>
-                                            </div>
-                                             <div class="col-6">
-                                                <div class="bg-dark p-10 text-white text-center">
-                                                   <i class="fa fa-plus m-b-5 font-16"></i>
-                                                   <h5 class="m-b-0 m-t-5"><?= $dashboard[3]['numLecture'] ?></h5>
-                                                   <small class="font-light">Total Lectures</small>
-                                                </div>
-                                            </div>                                            
+                                            </div>                                           
                                             <div class="col-6 m-t-15">
                                                 <div class="bg-dark p-10 text-white text-center">
                                                    <i class="fa fa-table m-b-5 font-16"></i>

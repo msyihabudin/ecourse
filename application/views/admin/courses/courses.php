@@ -6,10 +6,6 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <?= $breadcrumbs; ?>
-                        <!--ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol-->
                     </nav>
                 </div>
             </div>
@@ -34,10 +30,10 @@
                                     <tr>
                                         <th class="one wide">ID</th>
                                         <th class="two wide">Course Badge</th>
-                                        <th class="two wide">Name</th>
-                                        <th class="five wide">Description</th>
-                                        <th class="one wide">Enroll URL</th>
-                                        <th class="three wide">Created At</th>
+                                        <th class="three wide">Name</th>
+                                        <th class="four wide">Description</th>
+                                        <th class="five wide">Enroll URL</th>
+                                        <th class="six wide">Created At</th>
                                         <th style="width: 43px;">Edit</th>
                                     </tr>
                                 </thead>

@@ -55,10 +55,6 @@ class AdminModel extends CI_Model {
         return $this->db->get('users');
     }
 
-    function getAllLecture() {
-        return $this->db->get('lecture');
-    }
-
     function getDashboard() {
         $select = array(
             'count(user.id_user) as numUser'
@@ -87,16 +83,7 @@ class AdminModel extends CI_Model {
                         ->get()
                         ->row_array();
 
-        $select = array(
-            'count(lecture.id_lecture) as numLecture'
-        );
-        $lecture = $this->db
-                        ->select($select)
-                        ->from('lecture')
-                        ->get()
-                        ->row_array();
-
-        $result = [$user, $course, $quest, $lecture];
+        $result = [$user, $course, $quest];
         return $result;
     }
 

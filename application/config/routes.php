@@ -47,7 +47,11 @@ $route['admin/signout'] = 'Admin/admin/signout';
 
 // Dashboard
 $route['admin/dashboard'] = 'Admin/admin/dashboard';
+$route['admin/pages'] = 'Admin/pages/index';
+$route['admin/cats'] = 'Admin/cats/index';
 $route['admin/courses'] = 'Admin/courses/index';
+$route['admin/posts'] = 'Admin/posts/index';
+$route['admin/posts/save'] = 'admin/posts/save_post';
 $route['admin/courses/add'] = 'Admin/courses/add_course';
 $route['admin/courses/save'] = 'Admin/courses/save_course';
 $route['admin/courses/edit/(:any)'] = 'Admin/courses/edit_course';

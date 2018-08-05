@@ -115,7 +115,7 @@ class Courses extends CI_Controller {
                     redirect( base_url().'admin/courses', 'refresh');
                 }else{
                     $this->session->set_flashdata('messagePr', 'Cannot save data!');
-                    redirect( base_url().'admin/courses', 'refresh');  
+                    redirect( base_url().'admin/courses', 'refresh');
                 }
             }else{
                 $error = array('error' => $this->upload->display_errors());

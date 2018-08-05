@@ -4,6 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Template 
 {
     var $ci;
+    private $_data = array();
         
     function __construct() 
     {
@@ -52,5 +53,25 @@ class Template
         }
          
         $this->ci->load->view(''.$tpl_view, $data);
+    }
+
+    public function set($name, $value = NULL)
+    {
+        // Lots of things! Set them all
+        if (is_array($name) OR is_object($name))
+        {
+            foreach ($name as $item => $value)
+            {
+                $this->_data[$item] = $value;
+            }
+        }
+
+        // Just one thing, set that
+        else
+        {
+            $this->_data[$name] = $value;
+        }
+
+        return $this;
     }
 }
