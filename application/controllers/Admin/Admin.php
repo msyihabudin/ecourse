@@ -35,6 +35,10 @@ class Admin extends CI_Controller {
         }
 
         $data['account'] = $this->adminmodel->getUsers($id);
+        $this->mybreadcrumb->add('Home', base_url('admin'));
+        $this->mybreadcrumb->add('Users', base_url('admin/user'));
+        $this->mybreadcrumb->add('Admin Account', base_url('admin/user/account'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
 
         $this->template->load('base_admin', 'admin/account', $data);
     }

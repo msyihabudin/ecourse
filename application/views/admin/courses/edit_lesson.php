@@ -5,10 +5,7 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>
@@ -16,12 +13,11 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <form action="<?= site_url('admin/courses/save_edit_lesson'); ?>" class="form-horizontal">
                         <div class="card-body">
-                            <h4 class="card-title"><a class="btn btn-primary" href="<?= site_url('admin/courses/path/lesson/'.$this->uri->segment(6)); ?>"><i class="fas fa-angle-left"></i> Back</a> Edit Lesson</h4>
-                            
+                                                        
                             <?= form_hidden('id_course_lesson', $lesson['id_course_lesson']); ?>
                             <?= form_hidden('id_course_path', $lesson['id_course_path']); ?>
 

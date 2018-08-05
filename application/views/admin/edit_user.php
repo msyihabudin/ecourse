@@ -5,10 +5,7 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>
@@ -18,7 +15,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="<?= site_url('admin/user/add_edit/'.$userData->users_id); ?>" method="post" class="form-horizontal">
+                    <form action="<?= site_url('admin/user/add_edit/'.$userData->users_id); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="card-body">                        
                             <div class="form-group row">
                                 <label class="col-md-3">Status</label>
@@ -93,8 +90,9 @@
                                 <div class="col-sm-9 pic_size" id="image-holder">
                                     <div class="fileUpload btn btn-success wdt-bg">
                                         <span>Change Picture</span>
-                                        <input id="fileUpload" class="upload" name="profile_pic" type="file" accept="image/*" /><br />
-                                        <input type="hidden" name="fileOld" value="<?php echo isset($user_data[0]->profile_pic)?$user_data[0]->profile_pic:'';?>" />
+                                        <?= form_upload('profilepic', '', array('required' => '', 'id' => 'fileUpload', 'class' => 'upload')); ?>
+                                        <br />
+                                        <input type="hidden" name="fileOld" value="<?= isset($user_data[0]->profile_pic)?$user_data[0]->profile_pic:'';?>" />
                                     </div><br /><br />
                                     <?php if(isset($userData->profile_pic) && file_exists('assets/image/user/'.$userData->profile_pic)){ 
                                       $profile_pic = $userData->profile_pic;
@@ -105,22 +103,13 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if(!empty($userData->users_id)){?>
                         <input type="hidden"  name="users_id" value="<?php echo isset($userData->users_id)?$userData->users_id:'';?>">
-                        <input type="hidden" name="fileOld" value="<?php echo isset($userData->profile_pic)?$userData->profile_pic:'';?>">
+                        <!--input type="hidden" name="fileOld" value="<?php echo isset($userData->profile_pic)?$userData->profile_pic:'';?>"-->
                         <div class="border-top">
                             <div class="card-body">
                               <button type="submit" name="edit" value="edit" class="btn btn-success">Update</button>
                             </div>
                         </div>
-                                  <!-- /.box-body -->
-                        <?php }else{ ?>                        
-                        <div class="border-top">
-                            <div class="card-body">
-                                <button type="submit" name="submit" value="add" class="btn btn-primary">Add</button>
-                            </div>
-                        </div>
-                        <?php }?>
                     </form>
                 </div>
             </div>

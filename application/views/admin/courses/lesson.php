@@ -5,10 +5,7 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>
@@ -19,12 +16,16 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-
+                        <?php if($this->session->flashdata("messagePr")){ ?>
+                        <div class="alert alert-info">      
+                          <?= $this->session->flashdata("messagePr"); ?>
+                        </div><br />
+                        <?php } ?>
                         <div class="ui blue padded segment">
                             <h3><?= $path['title_path']; ?></h3>
                             <p><?= $path['description']; ?></p>
 
-                            <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Lesson</button>
+                            <a href="<?= site_url('admin/courses/path/lesson/add/'.$path['id_course_path']);?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Lesson</a>
                             <br /><br />
 
                             <table class="table" id="tables">
@@ -68,33 +69,4 @@
         </div>
     </div>
     <?php $this->load->view('admin/partials/footer.php'); ?>
-</div>
-
-<div class="ui modal add">
-    <i class="close icon"></i>
-    <div class="header">
-        Add New Lesson
-    </div>
-    <div class="content">
-        <?= form_open_multipart('admin/courses/add_lesson', 'class="ui form"'); ?>
-            <?= form_hidden('id_course_path', $path['id_course_path']); ?>
-            <div class="required field">
-                <label>Name lesson</label>
-                <?= form_input('name', '', array('placeholder'=>'Name lesson', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Description</label>
-                <?= form_input('description', '', array('placeholder'=>'Description', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Lesson URL</label>
-                <?= form_input('course_lesson_url', '', array('placeholder'=>'lesson URL', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Lesson Badge (type: png, jpg)</label>
-                <?= form_upload('course_lesson_badge', ''); ?>
-            </div>
-            <?= form_submit('add_lesson', 'Save Lesson', 'class="ui fluid primary button"'); ?>
-        <?= form_close(); ?>
-    </div>
 </div>

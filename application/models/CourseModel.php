@@ -122,4 +122,9 @@ class CourseModel extends CI_Model {
 
         return json_encode($data);
     }
+
+    public function insertRow($table, $data){
+        $this->db->insert($table, $data);
+        return  $this->db->insert_id();
+    }
 }

@@ -15,36 +15,36 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="<?= site_url('admin/courses/save_edit_course'); ?>" enctype="multipart/form-data" method="post" class="form-horizontal">
+                    <form action="<?= site_url('admin/courses/save_lesson'); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <?= form_hidden('id_course_path', $path['id_course_path']); ?>
                     <div class="card-body">
-
-                        <?= form_hidden('id_course', $course['id_course']); ?>
-
                         <div class="form-group row">
-                            <label class="col-md-3">Name</label>
+                            <label class="col-md-3">Title</label>
                             <div class="col-sm-9">
-                                <?= form_input('name', $course['course_name'], array('placeholder'=>'Name', 'required'=>'', 'class'=>'form-control')); ?>
+                                <?= form_input('name', '', array('placeholder'=>'Title', 'required'=>'', 'class'=>'form-control')); ?>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3">Description</label>
                             <div class="col-sm-9">
-                                <?= form_textarea('description', $course['description'], array('placeholder'=>'Description', 'required'=>'', 'class'=>'form-control')); ?>
+                                <?= form_textarea('description', '', array('placeholder'=>'Description', 'required'=>'', 'class'=>'form-control')); ?>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3">Enroll URL</label>
-                            <div class="col-sm-2">
-                                courses/
+                            <label class="col-md-3">URL</label>
+                            <div class="col-sm-9">
+                                <?= form_input('course_lesson_url', '', array('placeholder'=>'URL', 'required'=>'', 'class'=>'form-control')); ?>
                             </div>
-                            <div class="col-sm-7">
-                                <?= form_input('enroll_url', $course['enroll_url'], array('placeholder'=>'Enrol URL', 'class'=>'form-control')); ?>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3">Lesson Badge (type: png, jpg)</label>
+                            <div class="col-sm-9">
+                                <?= form_upload('course_lesson_badge', '', array('required'=>'', 'class'=>'form-control')); ?>
                             </div>
-                        </div>                
-                    </div>
+                        </div>
                     <div class="border-top">
                         <div class="card-body">
-                            <?= form_submit('save_edit', 'Save Courses', 'class="btn btn-primary"'); ?>
+                            <?= form_submit('add_lesson', 'Save Lesson', 'class="btn btn-primary"'); ?>
                         </div>
                     </div>
                     </form>                             

@@ -5,10 +5,7 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>
@@ -16,11 +13,10 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
-                    <form action="<?= site_url('admin/courses/save_edit_path'); ?>" class="form-horizontal">
+                    <form action="<?= site_url('admin/courses/save_edit_path'); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="card-body">
-                        <h4 class="card-title"><a class="btn btn-primary" href="<?= site_url('admin/courses/path/'.$this->uri->segment(5)); ?>"><i class="fas fa-angle-left"></i> Back</a> Edit Course Path</h4>
                         <?= form_hidden('id_course_path', $path['id_course_path']); ?>
                         <?= form_hidden('id_course', $path['id_course']); ?>
                         <div class="form-group row">

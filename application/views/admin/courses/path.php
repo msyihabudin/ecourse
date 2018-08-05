@@ -5,10 +5,7 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>
@@ -19,7 +16,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-
+                        <?php if($this->session->flashdata("messagePr")){ ?>
+                        <div class="alert alert-info">      
+                          <?= $this->session->flashdata("messagePr"); ?>
+                        </div><br />
+                        <?php } ?>
                         <div class="ui blue padded segment">
                             <div class="ui stackable grid">
                                 <div class="three wide column">
@@ -33,7 +34,7 @@
                             </div>
                             <br />
 
-                            <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Path</button>
+                            <a href="<?= site_url('admin/courses/path/add/'.$course['id_course']);?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Path</a>
                             <br /><br />
 
                             <table class="table" id="tables">
@@ -74,25 +75,4 @@
         </div>
     </div>
     <?php $this->load->view('admin/partials/footer.php'); ?>
-</div>
-
-<div class="ui modal add">
-    <i class="close icon"></i>
-    <div class="header">
-        Add New Path
-    </div>
-    <div class="content">
-        <?= form_open('admin/courses/add_path', 'class="ui form"'); ?>
-            <?= form_hidden('id_course', $course['id_course']); ?>
-            <div class="required field">
-                <label>Title Path</label>
-                <?= form_input('title', '', array('placeholder'=>'Title Path', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Description</label>
-                <?= form_textarea('description', '', array('placeholder'=>'Description', 'required'=>'')); ?>
-            </div>
-            <?= form_submit('add_path', 'Save Path', 'class="ui fluid primary button"'); ?>
-        <?= form_close(); ?>
-    </div>
 </div>

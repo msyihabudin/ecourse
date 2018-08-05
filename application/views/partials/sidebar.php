@@ -1,11 +1,7 @@
 <!-- Top Sidebar -->
 <div class="ui vertical borderless top sidebar menu">
     <div class="ui container">
-        <div class="item">
-            <a class="ui small image" href="<?= site_url(); ?>">
-                <img src="<?= base_url("assets/image/logo-code-realm.svg"); ?>">
-            </a>
-        </div>
+        
         <div class="item">
             <div class="ui search">
                 <div class="ui icon input">

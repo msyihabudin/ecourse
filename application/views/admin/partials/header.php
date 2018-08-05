@@ -30,7 +30,14 @@
                     </form>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url("assets/backend/assets/images/users/1.jpg"); ?>" alt="user" class="rounded-circle" width="31"></a>
+                    <?php 
+                    $profile_pic =  'user.png';
+                    if(isset($this->session->userdata('user_details')[0]->profile_pic) && file_exists('assets/image/user/'.$this->session->userdata('user_details')[0]->profile_pic))
+                    {
+                        $profile_pic = $this->session->userdata('user_details')[0]->profile_pic;
+                    }
+                    ?>
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url().'/assets/image/user/'.$profile_pic;?>" alt="user" class="rounded-circle" width="31" height="31"></a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= site_url('admin/account'); ?>"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>

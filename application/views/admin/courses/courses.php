@@ -5,10 +5,11 @@
                 <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
+                        <?= $breadcrumbs; ?>
+                        <!--ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
-                        </ol>
+                        </ol-->
                     </nav>
                 </div>
             </div>
@@ -19,7 +20,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                    <button class="btn btn-primary" id="add"><i class="fas fa-plus"></i> Add New Course</button>
+                    <?php if($this->session->flashdata("messagePr")){ ?>
+                        <div class="alert alert-info">      
+                          <?= $this->session->flashdata("messagePr"); ?>
+                        </div><br>
+                    <?php } ?>
+                    <a href="<?= site_url('admin/courses/add');?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Course</a>
                     <br /><br />
                         
                         <div class="table-responsive">
@@ -65,32 +71,4 @@
         </div>
     </div>
     <?php $this->load->view('admin/partials/footer.php'); ?>
-</div>
-
-<div class="ui modal add">
-    <i class="close icon"></i>
-    <div class="header">
-        Add New Course
-    </div>
-    <div class="content">
-        <?= form_open_multipart('admin/courses/add_course', 'class="ui form"'); ?>
-            <div class="required field">
-                <label>Name</label>
-                <?= form_input('name', '', array('placeholder'=>'Name', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Description</label>
-                <?= form_textarea('description', '', array('placeholder'=>'Description', 'required'=>'')); ?>
-            </div>
-            <div class="required field">
-                <label>Enroll URL</label>
-                <?= form_input('enroll_url', '', array('placeholder'=>'Enrol URL')); ?>
-            </div>
-            <div class="required field">
-                <label>Course Badge (type: png, jpg)</label>
-                <?= form_upload('course_badge', ''); ?>
-            </div>
-            <?= form_submit('add_course', 'Save courses', 'class="ui fluid primary button"'); ?>
-        <?= form_close(); ?>
-    </div>
 </div>

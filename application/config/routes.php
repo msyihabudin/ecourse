@@ -1,54 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
@@ -96,10 +48,14 @@ $route['admin/signout'] = 'Admin/admin/signout';
 // Dashboard
 $route['admin/dashboard'] = 'Admin/admin/dashboard';
 $route['admin/courses'] = 'Admin/courses/index';
+$route['admin/courses/add'] = 'Admin/courses/add_course';
+$route['admin/courses/save'] = 'Admin/courses/save_course';
 $route['admin/courses/edit/(:any)'] = 'Admin/courses/edit_course';
 $route['admin/courses/path/(:any)'] = 'Admin/courses/path';
+$route['admin/courses/path/add/(:any)'] = 'Admin/courses/add_path';
 $route['admin/courses/path/edit/(:any)'] = 'Admin/courses/edit_path';
 $route['admin/courses/path/lesson/(:any)'] = 'Admin/courses/lesson';
+$route['admin/courses/path/lesson/add/(:any)'] = 'Admin/courses/add_lesson';
 $route['admin/courses/path/lesson/edit/(:any)'] = 'Admin/courses/edit_lesson';
 $route['admin/quest'] = 'Admin/quest/index';
 $route['admin/account'] = 'Admin/admin/account';

@@ -3,7 +3,7 @@
     <div class="ui container">
         <a class="toc item"><i class="sidebar icon"></i></a>
         <div class="item">
-            <a class="ui small image" href="<?= site_url(); ?>">
+            <a class="ui small image" href="<?= site_url('admin'); ?>">
                 ECOURSE
             </a>
         </div>
