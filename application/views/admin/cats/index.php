@@ -46,4 +46,5 @@
             </div>
         </div>
     </div>
+    <?php $this->load->view('admin/partials/footer.php'); ?>
 </div>

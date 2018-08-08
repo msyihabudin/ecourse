@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Quest extends CI_Controller {
 
 	public function index() {
+		is_login();
 		$this->load->model('questmodel');
 		$data['title'] = "Quest Courses";
 		$data['quests'] = $this->questmodel->getAllQuest()->result();

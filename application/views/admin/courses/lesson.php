@@ -52,7 +52,7 @@
                                         <td>
                                             <div class="ui icon buttons">
                                                 <a href="<?= site_url('admin/courses/path/lesson/edit/'.$lesson->id_course_lesson); ?>"><i class="fas fa-edit"></i></a>
-                                                <a href="#"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('admin/courses/remove_lesson/'.$lesson->id_course_lesson) ?>"><i class="fas fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

@@ -51,6 +51,7 @@ $route['admin/pages'] = 'Admin/pages/index';
 $route['admin/cats'] = 'Admin/cats/index';
 $route['admin/courses'] = 'Admin/courses/index';
 $route['admin/posts'] = 'Admin/posts/index';
+$route['admin/navigation'] = 'Admin/navigation/index';
 $route['admin/posts/save'] = 'admin/posts/save_post';
 $route['admin/courses/add'] = 'Admin/courses/add_course';
 $route['admin/courses/save'] = 'Admin/courses/save_course';

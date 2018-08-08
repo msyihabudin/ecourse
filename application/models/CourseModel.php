@@ -127,4 +127,19 @@ class CourseModel extends CI_Model {
         $this->db->insert($table, $data);
         return  $this->db->insert_id();
     }
+
+    public function remove_course($id)
+    {       
+        return $this->db->delete('course', ['id_course' => $id]);
+    }
+
+    public function remove_path($id)
+    {       
+        return $this->db->delete('course_path', ['id_course_path' => $id]);
+    }
+
+    public function remove_lesson($id)
+    {       
+        return $this->db->delete('course_lesson', ['id_course_lesson' => $id]);
+    }
 }

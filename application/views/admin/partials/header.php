@@ -72,7 +72,10 @@
                 </li> 
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/pages'); ?>" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Pages</span></a>
-                </li>                
+                </li>
+                <li class="sidebar-item"> 
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/navigation'); ?>" aria-expanded="false"><i class="mdi mdi-relative-scale"></i><span class="hide-menu">Navigation</span></a>
+                </li>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Authentication </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">

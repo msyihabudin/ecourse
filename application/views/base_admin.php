@@ -46,6 +46,7 @@ else {
 
     </div>
     <script src="<?= base_url("assets/js/jquery.min.js"); ?>"></script>
+    <script src="<?= base_url("assets/js/jquery-ui.min.js"); ?>"></script>
     <!--script src="<?= base_url('assets/js/jquery.validate.min.js');?>"></script-->
     <script src="<?= base_url("assets/backend/assets/libs/jquery/dist/jquery.min.js"); ?>"></script>
     <script src="<?= base_url('assets/js/jquery.form-validator.min.js');?>"></script>
@@ -54,6 +55,7 @@ else {
     <script src="<?= base_url("assets/js/Chart.min.js"); ?>"></script>
     <script src="<?= base_url("assets/js/moment.js"); ?>"></script>
     <script src="<?= base_url("assets/js/admin.js"); ?>"></script>
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?= base_url("assets/backend/assets/libs/popper.js/dist/umd/popper.min.js"); ?>"></script>
     <script src="<?= base_url("assets/backend/assets/libs/bootstrap/dist/js/bootstrap.min.js"); ?>"></script>

@@ -33,6 +33,7 @@ class Pages extends CI_Controller {
 
      public function add_page()
      {    
+          is_login();
           $data['title'] = "Add New Page";
           // get all pages
           $data['pages'] = $this->PageModel->get_pages();

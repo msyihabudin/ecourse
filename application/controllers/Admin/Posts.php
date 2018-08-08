@@ -34,6 +34,7 @@ class Posts extends CI_Controller {
 
 	public function add_post()
 	{
+        is_login();
         $data['title'] = "Add New Post";
         $this->mybreadcrumb->add('Home', base_url('admin'));
         $this->mybreadcrumb->add('Posts', base_url('admin/posts'));

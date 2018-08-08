@@ -17,6 +17,7 @@ class Cats extends CI_Controller
 
 	public function index()
 	{
+		is_login();
 		$data['title'] = "Categories";
 		// get the categories
 		$data['cats'] = $this->CatModel->get_cats();
@@ -30,6 +31,7 @@ class Cats extends CI_Controller
 
 	public function add_cat()
 	{
+		is_login();
 		$data['title'] = "Add Category";
 		$this->mybreadcrumb->add('Home', base_url('admin'));
         $this->mybreadcrumb->add('Categories', base_url('admin/cats'));

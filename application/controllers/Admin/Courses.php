@@ -323,4 +323,50 @@ class Courses extends CI_Controller {
             redirect('admin/courses/path/lesson/'.$this->input->post('id_course_path'));
         }
     }
+
+    public function remove_course($id)
+    {
+        // remove the nav
+        if ($this->coursemodel->remove_course($id))
+        {
+            //it worked
+            $this->session->set_flashdata('messagePr', 'Course removed Successfully');
+            redirect( base_url().'admin/courses', 'refresh');
+        }
+        // failed to remove
+        $this->session->set_flashdata('messagePr', 'Unable to remove Course item. Please try again.');
+        redirect( base_url().'admin/courses', 'refresh');
+    }
+
+    public function remove_path($id)
+    {
+        $idprev = $this->coursemodel->getPath($id)->row_array();
+        //print_r($idprev['id_course']);
+        // remove the nav
+        if ($this->coursemodel->remove_path($id))
+        {
+            //it worked
+            $this->session->set_flashdata('messagePr', 'Course Path removed Successfully');
+            redirect( base_url().'admin/courses/path/'.$idprev['id_course'], 'refresh');
+        }
+        // failed to remove
+        $this->session->set_flashdata('messagePr', 'Unable to remove Course Path item. Please try again.');
+        redirect( base_url().'admin/courses/path/'.$idprev['id_course'], 'refresh');
+    }
+
+    public function remove_lesson($id)
+    {
+        $idprev = $this->coursemodel->getLesson($id)->row_array();
+        print_r($idprev['id_course_path']);
+        // remove the nav
+        if ($this->coursemodel->remove_lesson($id))
+        {
+            //it worked
+            $this->session->set_flashdata('messagePr', 'Lesson removed Successfully');
+            redirect( base_url().'admin/courses/path/lesson/'.$idprev['id_course_path'], 'refresh');
+        }
+        // failed to remove
+        $this->session->set_flashdata('messagePr', 'Unable to remove Lesson item. Please try again.');
+        redirect( base_url().'admin/courses/path/lesson/'.$idprev['id_course_path'], 'refresh');
+    }
 }

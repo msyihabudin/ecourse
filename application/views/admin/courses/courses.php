@@ -50,7 +50,7 @@
                                             <div class="ui icon buttons">
                                                 <a href="<?= site_url('admin/courses/path/'.$courses->id_course); ?>"><i class="fas fa-info-circle"></i></a>
                                                 <a href="<?= site_url('admin/courses/edit/'.$courses->id_course); ?>"><i class="fas fa-edit"></i></a>
-                                                <a href="#"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('admin/courses/remove_course/'.$courses->id_course) ?>"><i class="fas fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

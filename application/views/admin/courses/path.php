@@ -58,7 +58,7 @@
                                             <div class="ui icon buttons">
                                                 <a href="<?= site_url('admin/courses/path/lesson/'.$path->id_course_path); ?>"><i class="fas fa-info-circle"></i></a>
                                                 <a href="<?= site_url('admin/courses/path/edit/'.$path->id_course_path); ?>"><i class="fas fa-edit"></i></a>
-                                                <a href="#"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('admin/courses/remove_path/'.$path->id_course_path) ?>"><i class="fas fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
