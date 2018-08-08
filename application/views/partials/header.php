@@ -1,80 +1,84 @@
-<!-- Header -->
-<div class="ui borderless text menu">
-    <div class="ui container">
-        <a class="toc item"><i class="sidebar icon"></i></a>
-        <div class="item">
-            <a class="ui small image" href="<?= site_url('admin'); ?>">
-                ECOURSE
-            </a>
+<header class="header">
+            
+        <!-- Top Bar -->
+        <div class="top_bar">
+            <div class="top_bar_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
+                                <ul class="top_bar_contact_list">
+                                    <li><div class="question">Have any questions?</div></li>
+                                    <li>
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        <div>001-1234-88888</div>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                        <div>info.deercreative@gmail.com</div>
+                                    </li>
+                                </ul>
+                                <div class="top_bar_login ml-auto">
+                                    <div class="login_button"><a href="#">Register or Login</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>              
         </div>
-        <div class="right item">
-            <!-- Search -->
-            <div class="item">
-                <div class="ui search">
-                    <div class="ui icon input">
-                        <input class="prompt" type="text" placeholder="Search course ...">
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="result"></div>
-                </div>
-            </div>
-            <?php if (isset($this->session->userdata['user_signed_in'])){ ?>
-            <!-- Notification -->
-            <div class="item">
-                <div class="ui floating dropdown icon" id="header-notification-dropdown">
-                    <i class="large alarm icon"></i>
-                    <div class="menu">
-                        <div class="item">
-                            There is no new notification.
-                        </div>
-                        <div class="divider"></div>
-                        <div class="item">
-                            <a href="<?= site_url('notification'); ?>">Show all new notification</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Messages -->
-            <div class="item">
-                <div class="ui floating dropdown icon" id="header-message-dropdown">
-                    <i class="large comments icon"></i>
-                    <div class="menu">
-                        <div class="item">
-                            There is no new message.
-                        </div>
-                        <div class="divider"></div>
-                        <div class="item">
-                            <a href="<?= site_url('account/messages'); ?>">Show all new message</a>
+
+        <!-- Header Content -->
+        <div class="header_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="logo_container">
+                                <a href="#">
+                                    <div class="logo_text">E<span>Course</span></div>
+                                </a>
+                            </div>
+                            <nav class="main_nav_contaner ml-auto">
+                                <ul class="main_nav">
+                                    <li class="active"><a href="<?= base_url();?>">Home</a></li>
+                                    <li><a href="<?= base_url('about');?>">About</a></li>
+                                    <li><a href="<?= base_url('courses');?>">Courses</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="#">Page</a></li>
+                                    <li><a href="<?= base_url('contact');?>">Contact</a></li>
+                                </ul>
+                                <div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+                                <!-- Hamburger -->
+
+                                <div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                                <div class="hamburger menu_mm">
+                                    <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+                                </div>
+                            </nav>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Account -->
-            <div class="item">
-                <div class="ui floating dropdown" id="header-account-dropdown">
-                    <img class="ui avatar image" src="<?= $photo_url; ?>">
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="<?= site_url('account'); ?>"><i class="blue dashboard icon"></i>My Dashboard</a>
-                        <a class="item" href="<?= site_url('account/report'); ?>"><i class="blue book icon"></i>My Report Card</a>
-                        <a class="item" href="<?= site_url('account/profile'); ?>"><i class="blue user icon"></i>My Profile</a>
-                        <a class="item" href="<?= site_url('users/signout'); ?>"><i class="blue sign out icon"></i>Sign Out</a>
-                    </div>
-                </div>
-            </div>
-            <?php
-            }
-            else {
-            ?>
-            <!-- Sign Up -->
-            <div class="item">
-                <?= anchor('signup', 'Create Free Account', 'class="ui primary basic button"'); ?>
-            </div>
-            <!-- Sign In -->
-            <div class="item">
-                <?= anchor('signin', 'Sign In', 'class="ui primary button"'); ?>
-            </div>
-            <?php } ?>
         </div>
-    </div>
-</div>
+
+        <!-- Header Search Panel -->
+        <div class="header_search_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="header_search_content d-flex flex-row align-items-center justify-content-end">
+                            <form action="#" class="header_search_form">
+                                <input type="search" class="search_input" placeholder="Search" required="required">
+                                <button class="header_search_button d-flex flex-column align-items-center justify-content-center">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>          
+    </header>

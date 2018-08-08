@@ -22,4 +22,11 @@ class Main extends CI_Controller {
 		$this->template->load('base', 'main/about', $data);
 		//$this->load->view('main/about', $data);
 	}
+
+	public function contact() {
+		$data['title'] = "Contact";
+
+		$this->template->load('base', 'main/contact', $data);
+		//$this->load->view('main/about', $data);
+	}
 }

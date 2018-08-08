@@ -10,6 +10,7 @@ $route['translate_uri_dashes'] = FALSE;
  */
 // Main
 $route['about'] = 'main/about';
+$route['contact'] = 'main/contact';
 $route['terms'] = 'main/about';
 $route['privacy'] = 'main/about';
 
