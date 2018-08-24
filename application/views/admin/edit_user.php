@@ -46,6 +46,7 @@
                                         <option value="instructor" <?= (isset($userData->user_type) && $userData->user_type == 'instructor')?'selected':''; ?>>Instructor</option>
                                         <option value="author" <?= (isset($userData->user_type) && $userData->user_type == 'author')?'selected':''; ?>>Author</option>
                                         <option value="editor" <?= (isset($userData->user_type) && $userData->user_type == 'editor')?'selected':''; ?>>Editor</option>
+                                        <option value="student" <?= (isset($userData->user_type) && $userData->user_type == 'student')?'selected':''; ?>>Student</option>
                                     </select>
                                 </div>
                             </div>

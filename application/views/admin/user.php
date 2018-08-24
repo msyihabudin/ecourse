@@ -47,7 +47,9 @@
                                         <td><?= $user->user_type; ?></td>
                                         <td>
                                             <a href="<?= site_url('admin/user/edit/'.$user->users_id); ?>"><i class="fas fa-edit"></i></a>
+                                            <?php if($user->user_type != "student"):?>
                                             <a href="<?= site_url('admin/user/delete/'.$user->users_id); ?>"><i class="fas fa-trash"></i></a>
+                                            <?php endif?>
                                         </td>
                                     </tr>
                                     <?php } ?>

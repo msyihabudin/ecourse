@@ -63,12 +63,12 @@ class Users extends CI_Controller {
         //}*/
         $return = $this->usersmodel->auth_user();
         if(empty($return)) { 
-            $this->session->set_flashdata('messagePr', 'Invalid details');  
-            redirect(base_url(), 'refresh');  
+            $this->session->set_flashdata('messagePr', 'Invalid username or password!');  
+            redirect(base_url('signin'), 'refresh');  
         } else { 
             if($return == 'not_varified') {
                 $this->session->set_flashdata('messagePr', 'This accout is not varified. Please contact to your admin..');
-                redirect(base_url(), 'refresh');
+                redirect(base_url('signin'), 'refresh');
             } else {
                 $this->session->set_userdata('user_details',$return);
             }

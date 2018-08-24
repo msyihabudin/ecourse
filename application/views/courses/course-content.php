@@ -35,7 +35,7 @@
                     <div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
 
                         <!-- Course Info Item -->
-                        <div class="course_info_item">
+                        <!--div class="course_info_item">
                             <div class="course_info_title">Teacher:</div>
                             <div class="course_info_text"><a href="#">Jacke Masito</a></div>
                         </div>

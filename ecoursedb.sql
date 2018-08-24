@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `badge` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table ecoursedb.badge: ~7 rows (approximately)
+-- Dumping data for table ecoursedb.badge: ~8 rows (approximately)
 /*!40000 ALTER TABLE `badge` DISABLE KEYS */;
 INSERT INTO `badge` (`id`, `nama_badge`, `img`) VALUES
 	(1, 'HTML-CSS Badge', 'http://localhost/ecourse/assets/image/Badge/badge-html-css.png'),
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `navigation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.navigation: ~4 rows (approximately)
+-- Dumping data for table ecoursedb.navigation: ~3 rows (approximately)
 /*!40000 ALTER TABLE `navigation` DISABLE KEYS */;
 INSERT INTO `navigation` (`id`, `title`, `description`, `url`, `external`, `position`) VALUES
 	(6, 'About', 'About Us', 'about', '0', '2'),
@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `order_confirm` (
   KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.order_confirm: ~4 rows (approximately)
+-- Dumping data for table ecoursedb.order_confirm: ~5 rows (approximately)
 /*!40000 ALTER TABLE `order_confirm` DISABLE KEYS */;
 INSERT INTO `order_confirm` (`order_id`, `no_rekening`, `atas_nama`, `image`, `jumlah`, `created_at`) VALUES
 	(2, 1222121212, 'torik', 'http://ecourse.work/./assets/image/bukalapak_12.png', 250000, '2018-08-21 22:43:53'),
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `quest` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table ecoursedb.quest: ~4 rows (approximately)
+-- Dumping data for table ecoursedb.quest: ~3 rows (approximately)
 /*!40000 ALTER TABLE `quest` DISABLE KEYS */;
 INSERT INTO `quest` (`id`, `quest_name`, `description`, `img`) VALUES
 	(1, 'Teknologi Web', 'Teknologi Web', 'https://4.bp.blogspot.com/-mhgMLE82f0Q/WBqemZLyVjI/AAAAAAAACIU/Njp2fUIYFSM1PDBcSE3NmU7sCbRCTaeswCLcB/s1600/a.JPG'),
@@ -435,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.settings: ~23 rows (approximately)
+-- Dumping data for table ecoursedb.settings: ~26 rows (approximately)
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 INSERT INTO `settings` (`name`, `value`, `tab`, `field_type`, `options`, `required`) VALUES
 	('admin_email', 'admin@ecource.com', 'email', 'text', '', 1),
@@ -503,11 +503,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`users_id`, `user_id`, `var_key`, `status`, `is_deleted`, `fullname`, `name`, `password`, `email`, `profile_pic`, `user_type`) VALUES
 	(1, '1', '', 'active', '0', 'Muhamad Syihabudin', 'admin', '$2y$10$SBPAe/GEVj1qvvo22D9lLuS5Ob2dlMjCoquz6XDYWp2JLe7QFCk6e', 'syehab94@gmail.com', '78976eaa1038decea46d3543318f3a28_1533013050.jpg', 'admin'),
-	(4, NULL, NULL, 'active', NULL, 'Muthi Nafisa', 'muthi', '', 'muthinafisa@gmail.com', 'user.png', 'student'),
-	(5, '1', NULL, 'active', '0', 'torik alkatiriee', 'torik', '$2y$10$rAFtF.H8NjtK0tCok6Nu4eE6Qm2FrZtVF6TE0cwo7oS9IMCSQ6JlG', 'torik@gmail.com', 'user.png', 'student'),
-	(6, '1', NULL, 'active', '0', 'muhamad syihabudin', 'syihabudin', '$2y$10$TjR7X2IXm9Y6R1/RmWWQMO//b5YeHw1ZSwXGze.hTGIyTxe6mp4Lq', 'syihabudin@gmail.com', 'user.png', 'student'),
-	(7, '1', NULL, 'active', '0', 'Muhamad Syihabudin', 'syihabu', '$2y$10$0jMsqWtA81rvHT7oYQOrEexaDAFKPN2fcrQcOsQZg1b5xYuJDBiQW', 'shb@outlook.co.id', '6a010536e486db970b01a3fd2b55a6970b-700wi2.jpg', 'instructor'),
-	(8, '1', NULL, 'active', '0', 'user 01', 'user01', '$2y$10$c1gGz.ilwdA4mCq5vnFAEeim4E0CvqNKJpMvQJZNpEFP92Njd.WQG', 'user01@gmail.com', '75842_-_Copy.jpg', 'author');
+	(5, '1', NULL, 'inactive', '0', 'torik alkatiriee', 'torik', '$2y$10$rAFtF.H8NjtK0tCok6Nu4eE6Qm2FrZtVF6TE0cwo7oS9IMCSQ6JlG', 'torik@gmail.com', 'user.png', 'student'),
+	(6, '1', NULL, 'active', '0', 'muhamad syihabudin', 'syihabudin', '$2y$10$3fCkq6gWAR5w0o0N1ofDCO7K3OQMyT1l1eXIfe2on0UjtCohJkXPO', 'syihabudin@gmail.com', 'user.png', 'student');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.user_items

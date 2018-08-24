@@ -52,6 +52,7 @@
                                         <option value="instructor">Instructor</option>
                                         <option value="author">Author</option>
                                         <option value="editor">Editor</option>
+                                        <option value="student">Student</option>
                                     </select>
                                 </div>
                             </div>
