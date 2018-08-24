@@ -2,13 +2,10 @@
      <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Settings</h4>
+                <h4 class="page-title"><?= $title; ?></h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?= base_url();?>">Home</a></li>
-                            <li class="breadcrumb-item active">Settings</li>
-                        </ol>
+                        <?= $breadcrumbs;?>
                     </nav>
                 </div>
             </div>

@@ -370,10 +370,7 @@ class Admin extends CI_Controller {
     {
         is_login();
 
-        $data['title'] = "Settings";
-        $this->mybreadcrumb->add('Home', base_url('admin'));
-        $this->mybreadcrumb->add('Settings', base_url('admin/settings'));
-        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        
 
         // do we have a submitted form?
         if ($this->input->post())

@@ -172,6 +172,10 @@ class AdminModel extends CI_Model {
 
         // load up the object with the info
         $data->settings = $tabs;
+        $data->title = "Settings";
+        $this->mybreadcrumb->add('Home', base_url('admin'));
+        $this->mybreadcrumb->add('Settings', base_url('admin/settings'));
+        $data->breadcrumbs = $this->mybreadcrumb->render();
 
         // send it off
         return $data;
