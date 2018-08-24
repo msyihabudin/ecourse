@@ -38,7 +38,7 @@ class Navigation extends CI_Controller {
 		// default empty array
 		$data = [];
 
-		$data['title'] = "Navigation";
+		$data['title'] = "Add Navigation Item";
 		$this->mybreadcrumb->add('Home', base_url('admin'));
         $this->mybreadcrumb->add('Navigation', base_url('admin/navigation'));
         $this->mybreadcrumb->add('Add Navigation Item', base_url('admin/navigation/add_nav'));
@@ -92,10 +92,16 @@ class Navigation extends CI_Controller {
         $this->template->load('base_admin', 'admin/navigation/add_nav', $data);       
 	}
 
-	public function edit($id)
+	public function edit_nav($id)
 	{
 		// get nav items
 		$data['nav'] = $this->NavigationModel->get_nav($id);
+
+		$data['title'] = "Edit Navigation Item";
+		$this->mybreadcrumb->add('Home', base_url('admin'));
+        $this->mybreadcrumb->add('Navigation', base_url('admin/navigation'));
+        $this->mybreadcrumb->add('Edit Navigation Item', base_url('admin/navigation/edit/'.$id));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
 
 		// get page slugs
 		$data['page_slugs'] = $this->NavigationModel->get_page_slugs();

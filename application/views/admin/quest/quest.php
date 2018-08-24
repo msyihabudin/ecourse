@@ -16,17 +16,21 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-
-                        <div class="ui blue padded segment">
+                        <?php if($this->session->flashdata("messagePr")){ ?>
+                            <div class="alert alert-info">      
+                              <?= $this->session->flashdata("messagePr"); ?>
+                            </div><br>
+                        <?php } ?>
+                        <a href="<?= site_url('admin/quest/add');?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Quest</a>
+                        <br /><br />
+                        <div class="table-responsive">
                             <table class="table" id="tables">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>ID Lecture</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Description</th>
-                                        <th>Enroll URL</th>
                                         <th>Edit</th>
                                     </tr>
                                 </thead>
@@ -34,16 +38,15 @@
                                     <?php foreach ($quests as $quest) { ?>
                                     <tr>
                                         <td><?= $quest->id; ?></td>
-                                        <td><?= $quest->id_lecture; ?></td>
                                         <td>
-                                            <img width="100px" height="100px" src="<?= $quest->img; ?>" alt="<?= $quest->lesson_name; ?>"/>
+                                            <img width="100px" height="100px" src="<?= $quest->img; ?>" alt="<?= $quest->quest_name; ?>"/>
                                         </td>
-                                        <td><?= $quest->lesson_name; ?></td>
+                                        <td><?= $quest->quest_name; ?></td>
                                         <td><?= $quest->description; ?></td>
-                                        <td><?= $quest->enroll_url; ?></td>
                                         <td>
                                             <div class="ui icon buttons">
-                                                <a href="#"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= site_url('admin/quest/edit/'.$quest->id); ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="<?= base_url('admin/quest/remove_quest/'.$quest->id) ?>"><i class="fas fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

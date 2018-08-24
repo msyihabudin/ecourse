@@ -40,13 +40,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <nav class="menu_nav">
             <ul class="menu_mm">
-                <li class="menu_mm"><a href="index.html">Home</a></li>
-                <li class="menu_mm"><a href="#">About</a></li>
-                <li class="menu_mm"><a href="#">Courses</a></li>
-                <li class="menu_mm"><a href="#">Blog</a></li>
-                <li class="menu_mm"><a href="#">Page</a></li>
-                <li class="menu_mm"><a href="contact.html">Contact</a></li>
-            </ul>
+                <li class="menu_mm"><a href="<?= base_url(); ?>">Home</a></li>
+                <li class="menu_mm"><a href="<?= base_url('about'); ?>">About</a></li>
+                <li class="menu_mm"><a href="<?= base_url('courses'); ?>">Courses</a></li>
+                <li class="menu_mm"><a href="<?= base_url('courses'); ?>">Blogs</a></li>
+                <li class="menu_mm"><a href="<?= base_url('courses'); ?>">News</a></li>
+                <li class="menu_mm"><a href="<?= base_url('contact'); ?>">Contact</a></li>
         </nav>
     </div>
 
@@ -74,6 +73,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?= base_url("assets/frontend/js/custom.js"); ?>"></script>
 <script src="<?= base_url("assets/frontend/plugins/colorbox/jquery.colorbox-min.js");?>"></script>
 <script src="<?= base_url("assets/frontend/js/course.js"); ?>"></script>
+<script src="<?= base_url('assets/js/jquery.form-validator.min.js');?>"></script>
+<script src="<?= base_url('assets/js/custom.js');?>"></script>
 
 </body>
 </html>

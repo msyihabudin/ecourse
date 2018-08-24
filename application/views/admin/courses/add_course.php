@@ -30,6 +30,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-md-3">Price<br><p>(Set 0 if course is <strong>free</strong>)</p></label>
+                            <div class="col-sm-9">
+                                <?= form_input('price', '', array('placeholder'=>'Price', 'required'=>'', 'class'=>'form-control')); ?>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3">Course Categories</label>
+                            <div class="col-sm-9">
+                                <select name="id_quest" class="form-control">
+                                    <?php foreach($quest as $value) { ?>
+                                    <option value="<?= $value->id;?>"><?= $value->quest_name;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-md-3">Enroll URL</label>
                             <div class="col-sm-2">
                                 courses/

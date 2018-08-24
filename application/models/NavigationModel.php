@@ -21,6 +21,11 @@ class NavigationModel extends CI_Model
 		return $this->db->where('id', $id)->limit(1)->get('navigation')->row_array();
 	}
 
+	public function get_nav_by_url($url)
+	{
+		return $this->db->where('url', $url)->limit(1)->get('navigation')->row_array();
+	}
+
 	public function add_nav($data)
 	{	
 		// for devlopers I've added the 
@@ -107,11 +112,11 @@ class NavigationModel extends CI_Model
     				break;
     			case '301' || '302':
     				// set_redirect($old_slug, $new_slug, type=navs|nav, $code)
-    				$this->obcore->set_redirect($current['url'], $data['url'], $data['type'], $redirect_val);
+    				$this->set_redirect($current['url'], $data['url'], $data['type'], $redirect_val);
     				break;
     			default:
     				// set_redirect($old_slug, $new_slug, type=navs|nav, $code)
-    				$this->obcore->set_redirect($current['url'], $data['url'], $data['type'], '301');
+    				$this->set_redirect($current['url'], $data['url'], $data['type'], '301');
     				break;
     		}
     	}
@@ -125,6 +130,41 @@ class NavigationModel extends CI_Model
 
 		// update the curent record and categories
 		return $this->db->where('id', $id)->update('navigation', $data);
+	}
+
+	public function set_redirect($old_slug, $new_slug, $type='post', $code="301")
+	{	
+		// is the redirect already set?
+		$current = $this->db
+						->where('old_slug', $old_slug)
+						->where('new_slug', $new_slug)
+						->limit(1)
+						->get('redirects')
+						->row();
+
+		// is there already a record?
+		if ($current)
+		{
+			// we'll update code rather than insert a new record.
+			// this is the only time one should be changing these
+			// otherwise, delete and enter new information
+			$update = [
+				'code' => $code
+			];
+			return $this->db
+						->where('id', $current->id)
+						->update('redirects', $update);
+		}
+
+		// There's no records that appear for this one
+		// so we'll insert the new redirects record.
+		$insert = [
+			'old_slug' 	=> $old_slug,
+			'new_slug' 	=> $new_slug,
+			'type'		=> $type,
+			'code'		=> $code
+		];
+		return $this->db->insert('redirects', $insert);
 	}
 	
     public function remove_nav($id)

@@ -34,6 +34,7 @@
                                         <th>Status</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -43,6 +44,7 @@
                                         <td><?= $user->status; ?></td>
                                         <td><?= $user->name; ?></td>
                                         <td><?= $user->email; ?></td>
+                                        <td><?= $user->user_type; ?></td>
                                         <td>
                                             <a href="<?= site_url('admin/user/edit/'.$user->users_id); ?>"><i class="fas fa-edit"></i></a>
                                             <a href="<?= site_url('admin/user/delete/'.$user->users_id); ?>"><i class="fas fa-trash"></i></a>

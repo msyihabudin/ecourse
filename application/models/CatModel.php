@@ -34,4 +34,16 @@ class CatModel extends CI_Model
 	{
 		return $this->db->delete('categories', ['id' => $id]);
 	}
+
+	public function get_categories_by_ids($category_ids)
+	{
+		$this->db->where_in('id', $category_ids);
+			
+		$query = $this->db->get('categories');
+			
+		if ($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+	}
 }

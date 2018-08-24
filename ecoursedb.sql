@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.1.16-MariaDB - mariadb.org binary distribution
+-- Server version:               10.1.34-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win32
 -- HeidiSQL Version:             9.4.0.5125
 -- --------------------------------------------------------
@@ -33,7 +33,8 @@ INSERT INTO `badge` (`id`, `nama_badge`, `img`) VALUES
 	(4, 'PHP Badge', 'http://localhost/ecourse/assets/image/Badge/badge-php.png'),
 	(5, 'Python Badge', 'http://localhost/ecourse/assets/image/Badge/badge-python.png'),
 	(6, 'Git Badge', 'http://localhost/ecourse/assets/image/Badge/badge-git.png'),
-	(7, 'Database Badge', 'http://localhost/ecourse/assets/image/Badge/badge-database.png');
+	(7, 'Database Badge', 'http://localhost/ecourse/assets/image/Badge/badge-database.png'),
+	(18, 'tes untuk bad Badge', 'http://ecourse.work/./assets/image/Badge/1-012.jpg');
 /*!40000 ALTER TABLE `badge` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.badgenuser
@@ -46,14 +47,17 @@ CREATE TABLE IF NOT EXISTS `badgenuser` (
   KEY `fk_mmbadge_user` (`id_user`),
   KEY `fk_mmbadge_badge` (`id_badge`),
   CONSTRAINT `fk_mmbadge_badge` FOREIGN KEY (`id_badge`) REFERENCES `badge` (`id`),
-  CONSTRAINT `fk_mmbadge_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `fk_mmbadge_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`users_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table ecoursedb.badgenuser: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.badgenuser: ~5 rows (approximately)
 /*!40000 ALTER TABLE `badgenuser` DISABLE KEYS */;
 INSERT INTO `badgenuser` (`id`, `id_badge`, `id_user`, `date_received`) VALUES
 	(1, 1, 1, '0000-00-00 00:00:00'),
-	(2, 2, 1, '0000-00-00 00:00:00');
+	(2, 2, 5, '2018-08-19 10:24:05'),
+	(3, 1, 6, '0000-00-00 00:00:00'),
+	(4, 5, 5, '0000-00-00 00:00:00'),
+	(6, 18, 6, '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `badgenuser` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.categories
@@ -63,12 +67,15 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `url_name` varchar(200) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.categories: ~1 rows (approximately)
+-- Dumping data for table ecoursedb.categories: ~4 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`id`, `name`, `url_name`, `description`) VALUES
-	(2, 'Uncategories', 'uncategories', 'Uncategories');
+	(2, 'Uncategories', 'uncategories', 'Uncategories'),
+	(3, 'Blogs', 'blogs', 'Blogs categories'),
+	(4, 'Events', 'events', 'Events categories'),
+	(5, 'News', 'news', 'News categories');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.course
@@ -78,30 +85,26 @@ CREATE TABLE IF NOT EXISTS `course` (
   `description` text NOT NULL,
   `course_badge` varchar(255) NOT NULL,
   `enroll_url` varchar(255) NOT NULL,
-  `course_file` varchar(255) NOT NULL,
+  `id_quest` int(11) NOT NULL,
+  `price` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_course`),
   UNIQUE KEY `skill_badge` (`course_badge`),
-  UNIQUE KEY `enroll_url` (`enroll_url`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `enroll_url` (`enroll_url`),
+  KEY `FK_course_quest` (`id_quest`),
+  CONSTRAINT `FK_course_quest` FOREIGN KEY (`id_quest`) REFERENCES `quest` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.course: ~14 rows (approximately)
+-- Dumping data for table ecoursedb.course: ~7 rows (approximately)
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` (`id_course`, `course_name`, `description`, `course_badge`, `enroll_url`, `course_file`, `created_at`) VALUES
-	(1, 'HTML - CSS', 'Learn the fundamentals of design, front-end development, and crafting user experiences that are easy on the eyes.', 'http://localhost/ecourse/assets/image/Badge/badge-html-css.png', 'courses/html-css', 'css.docx', '2018-07-28 20:57:30'),
-	(2, 'JavaScript', 'Spend some time with this powerful scripting language and learn to build lightweight applications with enhanced user interfaces. ', 'http://localhost/ecourse/assets/image/Badge/badge-javascript.png', 'courses/javascript', 'javascript.docx', '2018-07-28 20:57:34'),
-	(3, 'Ruby', 'Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.', 'http://localhost/ecourse/assets/image/Badge/badge-ruby.png', 'courses/ruby', 'ruby.docx', '2018-07-28 20:57:37'),
-	(4, 'PHP', 'Dig into one of the most prevalent programming languages and learn how PHP can help you develop various applications for the web.', 'http://localhost/ecourse/assets/image/Badge/badge-php.png', 'courses/php', 'php.docx', '2018-07-28 20:57:40'),
-	(5, 'Python', 'Explore what it means to store and manipulate data, make decisions with your program, and leverage the power of Python.', 'http://localhost/ecourse/assets/image/Badge/badge-python.png', 'courses/python', 'python.docx', '2018-07-28 20:57:43'),
-	(6, 'Git', 'Build a solid foundation in Git, then pair it with advanced version control skills. Learn how to collaborate on projects effectively with GitHub.', 'http://localhost/ecourse/assets/image/Badge/badge-git.png', 'courses/git', 'git.docx', '2018-07-28 20:57:47'),
-	(7, 'Database', 'Take control of your application’s data layer by learning SQL, and take NoSQL for a spin if you’re feeling non-relational.', 'http://localhost/ecourse/assets/image/Badge/badge-database.png', 'courses/database', 'database.docx', '2018-07-28 20:57:50'),
-	(8, 'tes', 'tes', '6a010536e486db970b01a3fd2b55a6970b-700wi.jpg', 'courses/tes', '', '2018-08-01 14:00:12'),
-	(9, 'rrrr', 'rrrr', '0.jpg', 'courses/rrrr', '', '2018-08-02 11:50:52'),
-	(10, 'eeee', 'eeee', 'http://ecourse.work/assets/image/Images/69787_1 - Copy.jpg', 'courses/eeee', '', '2018-08-02 11:56:11'),
-	(11, 'qqqq', 'qqqq', 'http://ecourse.work/assets/image/Images/81588.jpg', 'courses/qqqq', '', '2018-08-02 11:58:16'),
-	(12, 'sss', 'sss', 'http://ecourse.work/assets/image/Images/103799.jpg', 'courses/sss', '', '2018-08-02 11:59:19'),
-	(13, 'mmm', 'mmm', 'http://ecourse.work/./assets/image/Badge/efectos2.png', 'mmm', '', '2018-08-02 12:53:03'),
-	(14, 'asas', 'asas', 'http://ecourse.work/./assets/image/Badge/6a010536e486db970b01a3fd2b55a6970b-700wi.jpg', 'courses/asas', '', '2018-08-02 22:28:51');
+INSERT INTO `course` (`id_course`, `course_name`, `description`, `course_badge`, `enroll_url`, `id_quest`, `price`, `created_at`) VALUES
+	(1, 'HTML - CSS', 'Learn the fundamentals of design, front-end development, and crafting user experiences that are easy on the eyes.', 'http://localhost/ecourse/assets/image/Badge/badge-html-css.png', 'courses/html-css', 1, 0, '2018-08-18 22:44:08'),
+	(2, 'JavaScript', 'Spend some time with this powerful scripting language and learn to build lightweight applications with enhanced user interfaces. ', 'http://localhost/ecourse/assets/image/Badge/badge-javascript.png', 'courses/javascript', 1, 0, '2018-08-18 22:44:13'),
+	(3, 'Ruby', 'Master your Ruby skills and increase your Rails street cred by learning to build dynamic, sustainable applications for the web.', 'http://localhost/ecourse/assets/image/Badge/badge-ruby.png', 'courses/ruby', 1, 100000, '2018-08-21 09:21:48'),
+	(4, 'PHP', 'Dig into one of the most prevalent programming languages and learn how PHP can help you develop various applications for the web.', 'http://localhost/ecourse/assets/image/Badge/badge-php.png', 'courses/php', 1, 0, '2018-08-18 22:44:15'),
+	(5, 'Python', 'Explore what it means to store and manipulate data, make decisions with your program, and leverage the power of Python.', 'http://localhost/ecourse/assets/image/Badge/badge-python.png', 'courses/python', 1, 250000, '2018-08-21 13:36:37'),
+	(6, 'Git', 'Build a solid foundation in Git, then pair it with advanced version control skills. Learn how to collaborate on projects effectively with GitHub.', 'http://localhost/ecourse/assets/image/Badge/badge-git.png', 'courses/git', 1, 0, '2018-08-18 22:44:29'),
+	(7, 'Database', 'Take control of your application’s data layer by learning SQL, and take NoSQL for a spin if you’re feeling non-relational.', 'http://localhost/ecourse/assets/image/Badge/badge-database.png', 'courses/database', 2, 0, '2018-08-18 22:44:26');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.course_lesson
@@ -111,16 +114,16 @@ CREATE TABLE IF NOT EXISTS `course_lesson` (
   `name_lesson` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `course_lesson_url` varchar(255) NOT NULL,
-  `course_lesson_badge` varchar(255) NOT NULL,
+  `course_lesson_file` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_course_lesson`),
-  UNIQUE KEY `skill_course_url` (`course_lesson_url`,`course_lesson_badge`),
+  UNIQUE KEY `skill_course_url` (`course_lesson_url`,`course_lesson_file`),
   KEY `id_skill_path` (`id_course_path`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.course_lesson: ~22 rows (approximately)
+-- Dumping data for table ecoursedb.course_lesson: ~19 rows (approximately)
 /*!40000 ALTER TABLE `course_lesson` DISABLE KEYS */;
-INSERT INTO `course_lesson` (`id_course_lesson`, `id_course_path`, `name_lesson`, `description`, `course_lesson_url`, `course_lesson_badge`, `created_at`) VALUES
+INSERT INTO `course_lesson` (`id_course_lesson`, `id_course_path`, `name_lesson`, `description`, `course_lesson_url`, `course_lesson_file`, `created_at`) VALUES
 	(1, 1, 'Front-end Foundations', 'Learn how to build a website with HTML and CSS.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/frontend-foundation.png', '2018-07-26 00:13:25'),
 	(2, 1, 'Front-end Formations', 'Learn the latest versions of HTML and CSS.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/frontend-formation.png', '2018-07-26 00:13:28'),
 	(3, 2, 'CSS Cross-Country', 'Explore the fundamentals of CSS.', 'http://localhost/ecourse/skills/html-css', 'http://localhost/ecourse/assets/image/Course/css.png', '2018-07-26 00:13:32'),
@@ -133,16 +136,13 @@ INSERT INTO `course_lesson` (`id_course_lesson`, `id_course_path`, `name_lesson`
 	(10, 5, 'Try PHP', 'Begin building a foundation in one of the most widely used programming languages.', 'http://localhost/ecourse/skills/php', 'http://localhost/ecourse/assets/image/Course/try-php.png', '2018-07-28 22:32:54'),
 	(11, 5, 'Close Encounters With PHP', 'Look to the skies and work with forms, validation, and custom libraries.', 'http://localhost/ecourse/skills/php', 'http://localhost/ecourse/assets/image/Course/close-php.png', '2018-07-28 22:32:57'),
 	(12, 6, 'Try Python', 'Begin scaling up your Python knowledge and open the door to plentiful programming possibilities.', 'http://localhost/ecourse/skills/python', 'http://localhost/ecourse/assets/image/Course/try-python.png', '2018-07-28 22:33:00'),
-	(13, 6, 'Flying Through Python', 'Continue learning the basics of Python and use them to manage our circus\' Spam Van food truck.', 'http://localhost/ecourse/skills/python', 'http://localhost/ecourse/assets/image/Course/flying-through-python.png', '2018-07-28 22:33:04'),
-	(14, 7, 'Try Git', 'Be introduced to the basic concepts of Git version control.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/try-git.png', '2018-07-28 22:33:07'),
+	(13, 6, 'Pendahuluan mengenai decision tree', 'decision tree adalah pohon keputusannnn', 'lesson-11', 'http://localhost/ecourse/assets/image/Course/flying-through-python.png', '2018-08-22 00:34:07'),
+	(14, 7, 'coba1lesson', 'wwwwwwww', 'coba1lesson', 'http://localhost/ecourse/assets/image/Course/try-git.png', '2018-08-22 00:17:00'),
 	(15, 7, 'Git Real', 'Get a more advanced introduction and guide to Git.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/git-real.png', '2018-07-28 22:33:11'),
 	(16, 7, 'Git Real 2', 'Learn more advanced Git techniques.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/git-real-2.png', '2018-07-28 22:33:14'),
 	(17, 7, 'Mastering Github', 'Better collaboration through GitHub.', 'http://localhost/ecourse/skills/git', 'http://localhost/ecourse/assets/image/Course/mastering-github.png', '2018-07-28 22:33:16'),
 	(18, 8, 'Try SQL', 'Learn basic database manipulation with SQL.', 'http://localhost/ecourse/skills/database', 'http://localhost/ecourse/assets/image/Course/try-sql.png', '2018-07-28 22:33:20'),
-	(19, 8, 'The Sequel to SQL', 'Move beyond the basics and learn the most powerful features of relational databases.', 'http://localhost/ecourse/skills/database', 'http://localhost/ecourse/assets/image/Course/sequel-sql.png', '2018-07-28 22:33:23'),
-	(20, 9, 'Lesson 1 as ', 'asdfg', 'asdfg', 'http://ecourse.work/./assets/image/Course/273904_-_Copy_-_Copy.jpg', '2018-08-02 23:37:57'),
-	(21, 9, 'asdfasd', 'asdfasd', 'asdfs', 'http://ecourse.work/./assets/image/Course/avatar_movie_wallpapers_posters.jpg', '2018-08-02 23:39:07'),
-	(22, 9, 'asdas', 'asdasd', 'asdasd', 'http://ecourse.work/./assets/image/Course/75842_-_Copy.jpg', '2018-08-02 23:40:23');
+	(19, 8, 'The Sequel to SQL', 'Move beyond the basics and learn the most powerful features of relational databases.', 'http://localhost/ecourse/skills/database', 'http://localhost/ecourse/assets/image/Course/sequel-sql.png', '2018-07-28 22:33:23');
 /*!40000 ALTER TABLE `course_lesson` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.course_path
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `course_path` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_course_path`),
   KEY `id_skill` (`id_course`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ecoursedb.course_path: ~9 rows (approximately)
 /*!40000 ALTER TABLE `course_path` DISABLE KEYS */;
@@ -180,14 +180,17 @@ CREATE TABLE IF NOT EXISTS `enroll_course` (
   KEY `id_skill` (`id_course`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `enroll_course_ibfk_1` FOREIGN KEY (`id_course`) REFERENCES `course` (`id_course`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `enroll_course_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  CONSTRAINT `enroll_course_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`users_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.enroll_course: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.enroll_course: ~5 rows (approximately)
 /*!40000 ALTER TABLE `enroll_course` DISABLE KEYS */;
 INSERT INTO `enroll_course` (`id_enroll_course`, `id_course`, `id_user`, `enroll_status`) VALUES
 	(1, 1, 1, 1),
-	(2, 2, 1, 1);
+	(2, 2, 5, 1),
+	(3, 2, 6, 1),
+	(4, 1, 6, 1),
+	(5, 5, 5, 1);
 /*!40000 ALTER TABLE `enroll_course` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.enroll_lesson
@@ -200,49 +203,13 @@ CREATE TABLE IF NOT EXISTS `enroll_lesson` (
   PRIMARY KEY (`id`),
   KEY `fk_mmenrollcourse_course` (`id_lesson`),
   KEY `fk_mmenrollcourse_user` (`id_user`),
-  CONSTRAINT `fk_mmenrollcourse_course` FOREIGN KEY (`id_lesson`) REFERENCES `lesson` (`id`),
-  CONSTRAINT `fk_mmenrollcourse_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+  CONSTRAINT `fk_mmenrollcourse_course` FOREIGN KEY (`id_lesson`) REFERENCES `quest` (`id`),
+  CONSTRAINT `fk_mmenrollcourse_user` FOREIGN KEY (`id_user`) REFERENCES `students` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table ecoursedb.enroll_lesson: ~0 rows (approximately)
 /*!40000 ALTER TABLE `enroll_lesson` DISABLE KEYS */;
 /*!40000 ALTER TABLE `enroll_lesson` ENABLE KEYS */;
-
--- Dumping structure for table ecoursedb.friend
-CREATE TABLE IF NOT EXISTS `friend` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ida` int(11) NOT NULL,
-  `idb` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ecoursedb.friend: ~0 rows (approximately)
-/*!40000 ALTER TABLE `friend` DISABLE KEYS */;
-INSERT INTO `friend` (`id`, `ida`, `idb`) VALUES
-	(1, 1, 2);
-/*!40000 ALTER TABLE `friend` ENABLE KEYS */;
-
--- Dumping structure for table ecoursedb.lesson
-CREATE TABLE IF NOT EXISTS `lesson` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `id_lecture` int(10) NOT NULL,
-  `lesson_name` varchar(255) DEFAULT NULL,
-  `description` char(255) DEFAULT NULL,
-  `img` text,
-  `status` int(1) NOT NULL DEFAULT '1',
-  `enroll_url` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_course_lecture` (`id_lecture`),
-  CONSTRAINT `fk_course_lecture` FOREIGN KEY (`id_lecture`) REFERENCES `lecture` (`id_lecture`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-
--- Dumping data for table ecoursedb.lesson: ~3 rows (approximately)
-/*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-INSERT INTO `lesson` (`id`, `id_lecture`, `lesson_name`, `description`, `img`, `status`, `enroll_url`) VALUES
-	(1, 1, 'Teknologi Web', 'Teknologi Web', 'https://4.bp.blogspot.com/-mhgMLE82f0Q/WBqemZLyVjI/AAAAAAAACIU/Njp2fUIYFSM1PDBcSE3NmU7sCbRCTaeswCLcB/s1600/a.JPG', 1, 'quest/teknologi-web'),
-	(2, 2, 'Data Mining', 'Data Mining', 'https://www.sas.com/en_us/insights/analytics/data-mining/_jcr_content/socialShareImage.img.png', 1, 'quest/data-mining'),
-	(3, 1, 'Android', 'Android Development', 'https://cnet4.cbsistatic.com/img/QJcTT2ab-sYWwOGrxJc0MXSt3UI=/2011/10/27/a66dfbb7-fdc7-11e2-8c7c-d4ae52e62bcc/android-wallpaper5_2560x1600_1.jpg', 1, 'quest/android');
-/*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.lesson_detail
 CREATE TABLE IF NOT EXISTS `lesson_detail` (
@@ -256,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `lesson_detail` (
   `file` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_course_detail` (`id_lesson`),
-  CONSTRAINT `fk_course_detail` FOREIGN KEY (`id_lesson`) REFERENCES `lesson` (`id`)
+  CONSTRAINT `fk_course_detail` FOREIGN KEY (`id_lesson`) REFERENCES `quest` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table ecoursedb.lesson_detail: ~5 rows (approximately)
@@ -268,6 +235,25 @@ INSERT INTO `lesson_detail` (`id`, `id_lesson`, `detail_name`, `description`, `i
 	(4, 2, 'Image Retrieval', 'Content Based Image Retrieval', 'http://www.ics.uci.edu/~djp3/classes/2009_01_02_INF141/Misc/wordle.jpg', 100, 1, 'https://www.pyimagesearch.com/2014/12/01/complete-guide-building-image-search-engine-python-opencv/'),
 	(5, 3, 'User Interface', 'Android User Interface', 'https://developer.android.com/images/ui/ui_index.png', 100, 1, 'https://www.tutorialspoint.com/android/android_user_interface_layouts.htm');
 /*!40000 ALTER TABLE `lesson_detail` ENABLE KEYS */;
+
+-- Dumping structure for table ecoursedb.navigation
+CREATE TABLE IF NOT EXISTS `navigation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `external` enum('0','1') NOT NULL DEFAULT '0',
+  `position` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table ecoursedb.navigation: ~4 rows (approximately)
+/*!40000 ALTER TABLE `navigation` DISABLE KEYS */;
+INSERT INTO `navigation` (`id`, `title`, `description`, `url`, `external`, `position`) VALUES
+	(6, 'About', 'About Us', 'about', '0', '2'),
+	(7, 'Contact', 'Contact Us', 'contact', '0', '4'),
+	(8, 'Courses', 'Courses', 'courses', '0', '3');
+/*!40000 ALTER TABLE `navigation` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
@@ -281,6 +267,51 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 -- Dumping data for table ecoursedb.notifications: ~0 rows (approximately)
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+
+-- Dumping structure for table ecoursedb.order_confirm
+CREATE TABLE IF NOT EXISTS `order_confirm` (
+  `order_id` bigint(20) NOT NULL,
+  `no_rekening` bigint(20) NOT NULL,
+  `atas_nama` varchar(100) NOT NULL,
+  `image` varchar(225) NOT NULL,
+  `jumlah` bigint(20) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `order_id` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ecoursedb.order_confirm: ~4 rows (approximately)
+/*!40000 ALTER TABLE `order_confirm` DISABLE KEYS */;
+INSERT INTO `order_confirm` (`order_id`, `no_rekening`, `atas_nama`, `image`, `jumlah`, `created_at`) VALUES
+	(2, 1222121212, 'torik', 'http://ecourse.work/./assets/image/bukalapak_12.png', 250000, '2018-08-21 22:43:53'),
+	(2, 1222121212, 'torik', 'http://ecourse.work/./assets/image/bukalapak_13.png', 250000, '2018-08-21 22:46:47'),
+	(5, 2312312, 'asdfasdf', 'http://ecourse.work/./assets/image/1.JPG', 250000, '2018-08-22 01:05:53'),
+	(6, 1222121212, 'Muhamad Syihabudin', 'http://ecourse.work/./assets/image/3.JPG', 3500000, '2018-08-22 02:36:08'),
+	(7, 1222121212, 'torik', 'http://ecourse.work/./assets/image/2.JPG', 3500000, '2018-08-22 02:40:29');
+/*!40000 ALTER TABLE `order_confirm` ENABLE KEYS */;
+
+-- Dumping structure for table ecoursedb.order_items
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `order_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `order_item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `order_item_name` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` bigint(20) NOT NULL,
+  `is_edited` int(5) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ecoursedb.order_items: ~7 rows (approximately)
+/*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
+INSERT INTO `order_items` (`order_id`, `order_item_id`, `order_item_name`, `status`, `total`, `is_edited`, `created_at`) VALUES
+	(1, 1, 'Ruby', 'Pending Payment', 100000, 1, '2018-08-21 15:14:47'),
+	(2, 2, 'Python', 'Completed', 250000, 1, '2018-08-21 15:30:42'),
+	(3, 3, 'Ruby', 'Pending Payment', 100000, 0, '2018-08-21 15:53:54'),
+	(4, 4, 'Python', 'Pending Payment', 250000, 0, '2018-08-21 15:55:06'),
+	(5, 5, 'uweuwe', 'Failed', 200000, 1, '2018-08-22 01:05:20'),
+	(6, 6, 'tes untuk bad', 'Completed', 3500000, 1, '2018-08-22 02:35:41'),
+	(7, 7, 'tes untuk bad', 'Failed', 3500000, 1, '2018-08-22 02:39:49');
+/*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.pages
 CREATE TABLE IF NOT EXISTS `pages` (
@@ -296,33 +327,20 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `meta_keywords` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.pages: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.pages: ~2 rows (approximately)
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
 INSERT INTO `pages` (`id`, `title`, `url_title`, `author`, `date`, `content`, `status`, `is_home`, `meta_title`, `meta_keywords`, `meta_description`) VALUES
-	(3, 'About Uss', 'about-us', 1, '2018-08-05', 'About Uss', 'inactive', 0, '', '', '');
+	(3, 'About', 'about-us', 1, '2018-08-05', 'About Us', 'active', 0, '', '', ''),
+	(4, 'Contact', 'contact-us', 1, '2018-08-08', 'Contact Us', 'active', 0, '', '', '');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
-
--- Dumping structure for table ecoursedb.permission
-CREATE TABLE IF NOT EXISTS `permission` (
-  `id` int(122) unsigned NOT NULL AUTO_INCREMENT,
-  `user_type` varchar(250) DEFAULT NULL,
-  `data` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ecoursedb.permission: ~2 rows (approximately)
-/*!40000 ALTER TABLE `permission` DISABLE KEYS */;
-INSERT INTO `permission` (`id`, `user_type`, `data`) VALUES
-	(1, 'Member', '{"users":{"own_create":"1","own_read":"1","own_update":"1","own_delete":"1"}}'),
-	(2, 'admin', '{"users":{"own_create":"1","own_read":"1","own_update":"1","own_delete":"1","all_create":"1","all_read":"1","all_update":"1","all_delete":"1"}}');
-/*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.posts
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` int(11) NOT NULL DEFAULT '0',
+  `cat_id` int(11) NOT NULL DEFAULT '0',
   `date_posted` date DEFAULT NULL,
   `title` varchar(200) NOT NULL,
   `url_title` varchar(200) NOT NULL,
@@ -335,14 +353,20 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `meta_title` varchar(200) NOT NULL,
   `meta_keywords` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `author` (`author`),
+  KEY `cat_id` (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.posts: ~2 rows (approximately)
+-- Dumping data for table ecoursedb.posts: ~6 rows (approximately)
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` (`id`, `author`, `date_posted`, `title`, `url_title`, `excerpt`, `content`, `feature_image`, `allow_comments`, `sticky`, `status`, `meta_title`, `meta_keywords`, `meta_description`) VALUES
-	(4, 1, '2018-08-05', 'post1', 'post1', 'post1', 'post1', '20140121105633195.jpg', '1', '0', 'draft', '', '', ''),
-	(5, 1, '2018-08-05', 'post2', 'post2', 'post2', 'post2', 'counselling.jpg', '1', '0', 'draft', '', '', '');
+INSERT INTO `posts` (`id`, `author`, `cat_id`, `date_posted`, `title`, `url_title`, `excerpt`, `content`, `feature_image`, `allow_comments`, `sticky`, `status`, `meta_title`, `meta_keywords`, `meta_description`) VALUES
+	(4, 1, 0, '2018-08-05', 'post1', 'post1', 'post1', 'post1', '20140121105633195.jpg', '1', '0', 'published', '', '', ''),
+	(5, 1, 0, '2018-08-05', 'post2', 'post2', 'post2', 'post2', 'counselling.jpg', '1', '0', 'published', '', '', ''),
+	(6, 1, 0, '2018-08-23', 'post3', 'post3', 'post3 asdfasdf asdf asdfasdfasd asdjf askdfhaskdfh askdhf asdh flahsdfkljahs dfkjhasdkfha sdkfhasdkjfh asdjfh askjldfh askdhf aksdhfkaljsdhf kashdf klashd fkjahsdjkfah sdkhf asjkdfh aksdjhfakshdfkjasdhfklahsdflkjah sdkf haskd faks dhflkjasdh fkah sdkf', 'post3', '81588.jpg', '1', '0', 'published', '', '', ''),
+	(7, 1, 0, '2018-08-23', 'events1', 'events1', 'events1 fasdfasd asdfasdf a', 'events1 asdfasd fasdfa sdfasdfas dfas dfa sdfa sdfasdfasd fasdf asdf', '273904_-_Copy.jpg', '1', '0', 'published', '', '', ''),
+	(8, 1, 0, '2018-08-23', 'events3', 'events3', 'adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd ', 'adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd adfasdfasdf asd fasdfasd fasdfasdfa sdfa sdfasdfasdf asdf asdfasdfasdfasd asd fa sdfasd fasdfasd fasdf asfasd fasd fas dfasd fasdjfa sdfgaksdjf ajksd ', '521145.jpg', '1', '0', 'published', '', '', ''),
+	(9, 1, 0, '2018-08-24', 'blog1', 'blog1', 'blog1', 'blog1', '79587.jpg', '1', '0', 'published', '', '', '');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.posts_to_categories
@@ -351,14 +375,36 @@ CREATE TABLE IF NOT EXISTS `posts_to_categories` (
   `post_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.posts_to_categories: ~2 rows (approximately)
+-- Dumping data for table ecoursedb.posts_to_categories: ~7 rows (approximately)
 /*!40000 ALTER TABLE `posts_to_categories` DISABLE KEYS */;
 INSERT INTO `posts_to_categories` (`id`, `post_id`, `category_id`) VALUES
-	(4, 4, 2),
-	(5, 5, 2);
+	(5, 5, 5),
+	(6, 4, 5),
+	(7, 6, 4),
+	(8, 6, 5),
+	(9, 7, 4),
+	(10, 8, 4),
+	(11, 9, 3);
 /*!40000 ALTER TABLE `posts_to_categories` ENABLE KEYS */;
+
+-- Dumping structure for table ecoursedb.quest
+CREATE TABLE IF NOT EXISTS `quest` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `quest_name` varchar(255) DEFAULT NULL,
+  `description` char(255) DEFAULT NULL,
+  `img` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table ecoursedb.quest: ~4 rows (approximately)
+/*!40000 ALTER TABLE `quest` DISABLE KEYS */;
+INSERT INTO `quest` (`id`, `quest_name`, `description`, `img`) VALUES
+	(1, 'Teknologi Web', 'Teknologi Web', 'https://4.bp.blogspot.com/-mhgMLE82f0Q/WBqemZLyVjI/AAAAAAAACIU/Njp2fUIYFSM1PDBcSE3NmU7sCbRCTaeswCLcB/s1600/a.JPG'),
+	(2, 'Data Mining', 'Data Mining', 'https://www.sas.com/en_us/insights/analytics/data-mining/_jcr_content/socialShareImage.img.png'),
+	(3, 'Android', 'Android Development', 'https://cnet4.cbsistatic.com/img/QJcTT2ab-sYWwOGrxJc0MXSt3UI=/2011/10/27/a66dfbb7-fdc7-11e2-8c7c-d4ae52e62bcc/android-wallpaper5_2560x1600_1.jpg');
+/*!40000 ALTER TABLE `quest` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.redirects
 CREATE TABLE IF NOT EXISTS `redirects` (
@@ -368,27 +414,57 @@ CREATE TABLE IF NOT EXISTS `redirects` (
   `type` varchar(4) NOT NULL DEFAULT 'post',
   `code` varchar(3) NOT NULL DEFAULT '301',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.redirects: ~0 rows (approximately)
+-- Dumping data for table ecoursedb.redirects: ~3 rows (approximately)
 /*!40000 ALTER TABLE `redirects` DISABLE KEYS */;
+INSERT INTO `redirects` (`id`, `old_slug`, `new_slug`, `type`, `code`) VALUES
+	(2, 'post1', 'about', 'page', '301'),
+	(3, 'page/contact-us', 'contact', 'page', '301'),
+	(4, '/index.php', 'index', 'page', '301');
 /*!40000 ALTER TABLE `redirects` ENABLE KEYS */;
 
--- Dumping structure for table ecoursedb.role
-CREATE TABLE IF NOT EXISTS `role` (
-  `id_role` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(10) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+-- Dumping structure for table ecoursedb.settings
+CREATE TABLE IF NOT EXISTS `settings` (
+  `name` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `tab` varchar(50) NOT NULL,
+  `field_type` varchar(50) NOT NULL,
+  `options` varchar(200) NOT NULL,
+  `required` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table ecoursedb.role: ~3 rows (approximately)
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` (`id_role`, `role_name`, `created_at`) VALUES
-	(1, 'admin', '2017-12-02 20:18:34'),
-	(2, 'lecture', '2017-12-02 20:18:34'),
-	(3, 'user', '2017-12-02 20:18:34');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+-- Dumping data for table ecoursedb.settings: ~23 rows (approximately)
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` (`name`, `value`, `tab`, `field_type`, `options`, `required`) VALUES
+	('admin_email', 'admin@ecource.com', 'email', 'text', '', 1),
+	('allow_registrations', 'true', 'users', 'dropdown', 'true=yes|false=no', 1),
+	('bank_account', '121239878922 a/n Muhamad Syihabudin (Mandiri)', 'general', 'text', '', 1),
+	('email_activation', 'true', 'users', 'dropdown', 'true=yes|false=no', 1),
+	('latest_news', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem', 'general', 'text', '', 1),
+	('mail_protocol', 'mail', 'email', 'dropdown', 'mail=mail|smtp=smtp|sendmail=sendmail', 1),
+	('manual_activation', 'false', 'users', 'dropdown', 'true=yes|false=no', 1),
+	('our_mision', 'Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.', 'general', 'text', '', 1),
+	('our_stories', 'Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.', 'general', 'text', '', 1),
+	('our_vision', 'Lorem ipsum dolor sit , consectet adipisi elit, sed do eiusmod tempor for enim en consectet adipisi elit, sed do consectet adipisi elit, sed doadesg.', 'general', 'text', '', 1),
+	('popular_course', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem', 'general', 'text', '', 1),
+	('register_now', 'Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'general', 'text', '', 1),
+	('sendmail_path', '/usr/sbin/sendmail', 'email', 'text', '', 0),
+	('server_email', 'admin@ecourse.com', 'email', 'text', '', 1),
+	('site_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem', 'general', 'text', '', 0),
+	('site_info1', 'tes', 'general', 'text', '', 1),
+	('site_info2', 'tes', 'general', 'text', '', 1),
+	('site_info3', 'tes', 'general', 'text', '', 1),
+	('site_info4', 'tes', 'general', 'text', '', 1),
+	('site_name', 'ECourse', 'general', 'text', '', 1),
+	('smtp_crypto', 'tls', 'email', 'dropdown', 'tls=TLS|ssl=SSL', 0),
+	('smtp_host', '', 'email', 'text', '', 0),
+	('smtp_pass', '', 'email', 'text', '', 0),
+	('smtp_port', '', 'email', 'text', '', 0),
+	('smtp_user', '', 'email', 'text', '', 0),
+	('upcoming_events', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem', 'general', 'text', '', 1);
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
 -- Dumping structure for table ecoursedb.templates
 CREATE TABLE IF NOT EXISTS `templates` (
@@ -407,32 +483,6 @@ INSERT INTO `templates` (`id`, `module`, `code`, `template_name`, `html`) VALUES
 	(3, 'users', 'invitation', 'Invitation', '<p>Hello <strong>{var_user_email}</strong></p>\r\n\r\n<p>Click below link to register&nbsp;<br />\r\n{var_inviation_link}</p>\r\n\r\n<p>Thanks&nbsp;</p>\r\n');
 /*!40000 ALTER TABLE `templates` ENABLE KEYS */;
 
--- Dumping structure for table ecoursedb.user
-CREATE TABLE IF NOT EXISTS `user` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `id_role` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `photo_url` varchar(255) DEFAULT NULL,
-  `Avatar` varchar(30) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_user`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `photo_url` (`photo_url`),
-  KEY `id_role` (`id_role`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ecoursedb.user: ~2 rows (approximately)
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id_user`, `id_role`, `name`, `email`, `username`, `password`, `photo_url`, `Avatar`, `created_at`) VALUES
-	(1, 3, 'Muhamad Syihabudin', 'syihab@gmail.com', 'syihab', 'syihab', 'http://localhost/ecourse/assets/image/User/rasyadh.jpg', 'Yuuki Yuuki-1', '2018-07-28 20:24:39'),
-	(3, 3, 'Ryan Darmawan', 'ryan@gmail.com', 'ryan', 'ryan1234', 'http://localhost/ecourse/assets/image/logo.svg', '', '2018-07-25 19:08:09');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
 -- Dumping structure for table ecoursedb.users
 CREATE TABLE IF NOT EXISTS `users` (
   `users_id` int(121) NOT NULL AUTO_INCREMENT,
@@ -440,21 +490,45 @@ CREATE TABLE IF NOT EXISTS `users` (
   `var_key` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `is_deleted` varchar(255) DEFAULT NULL,
+  `fullname` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `profile_pic` varchar(255) DEFAULT NULL,
   `user_type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ecoursedb.users: ~3 rows (approximately)
+-- Dumping data for table ecoursedb.users: ~6 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`users_id`, `user_id`, `var_key`, `status`, `is_deleted`, `name`, `password`, `email`, `profile_pic`, `user_type`) VALUES
-	(1, '1', '', 'active', '0', 'admin', '$2y$10$SBPAe/GEVj1qvvo22D9lLuS5Ob2dlMjCoquz6XDYWp2JLe7QFCk6e', 'syehab94@gmail.com', '78976eaa1038decea46d3543318f3a28_1533013050.jpg', 'admin'),
-	(2, NULL, NULL, 'active', '0', 'user02', '$2y$10$dJ5KjWxK8sL84N8OjHu39uGwxDFkS3WV2rbHTAeQSkr5gsBlHMZGG', 'user02@gmail.com', 'user.png', NULL),
-	(3, '1', NULL, 'active', '0', 'user011', '$2y$10$uzjhH5xsLvRoqT0Nn1ooluwDlyw6fn1HKGeT6/f7hlHG/bNghRJny', 'user01@gmail.com', 'user.png', 'Member');
+INSERT INTO `users` (`users_id`, `user_id`, `var_key`, `status`, `is_deleted`, `fullname`, `name`, `password`, `email`, `profile_pic`, `user_type`) VALUES
+	(1, '1', '', 'active', '0', 'Muhamad Syihabudin', 'admin', '$2y$10$SBPAe/GEVj1qvvo22D9lLuS5Ob2dlMjCoquz6XDYWp2JLe7QFCk6e', 'syehab94@gmail.com', '78976eaa1038decea46d3543318f3a28_1533013050.jpg', 'admin'),
+	(4, NULL, NULL, 'active', NULL, 'Muthi Nafisa', 'muthi', '', 'muthinafisa@gmail.com', 'user.png', 'student'),
+	(5, '1', NULL, 'active', '0', 'torik alkatiriee', 'torik', '$2y$10$rAFtF.H8NjtK0tCok6Nu4eE6Qm2FrZtVF6TE0cwo7oS9IMCSQ6JlG', 'torik@gmail.com', 'user.png', 'student'),
+	(6, '1', NULL, 'active', '0', 'muhamad syihabudin', 'syihabudin', '$2y$10$TjR7X2IXm9Y6R1/RmWWQMO//b5YeHw1ZSwXGze.hTGIyTxe6mp4Lq', 'syihabudin@gmail.com', 'user.png', 'student'),
+	(7, '1', NULL, 'active', '0', 'Muhamad Syihabudin', 'syihabu', '$2y$10$0jMsqWtA81rvHT7oYQOrEexaDAFKPN2fcrQcOsQZg1b5xYuJDBiQW', 'shb@outlook.co.id', '6a010536e486db970b01a3fd2b55a6970b-700wi2.jpg', 'instructor'),
+	(8, '1', NULL, 'active', '0', 'user 01', 'user01', '$2y$10$c1gGz.ilwdA4mCq5vnFAEeim4E0CvqNKJpMvQJZNpEFP92Njd.WQG', 'user01@gmail.com', '75842_-_Copy.jpg', 'author');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Dumping structure for table ecoursedb.user_items
+CREATE TABLE IF NOT EXISTS `user_items` (
+  `user_item_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `item_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `flag` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_item_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ecoursedb.user_items: ~5 rows (approximately)
+/*!40000 ALTER TABLE `user_items` DISABLE KEYS */;
+INSERT INTO `user_items` (`user_item_id`, `user_id`, `item_id`, `flag`, `created_at`) VALUES
+	(1, 5, 3, 'delete', '2018-08-21 15:14:45'),
+	(2, 5, 5, 'delete', '2018-08-21 15:30:36'),
+	(5, 6, 17, 'delete', '2018-08-21 23:14:31'),
+	(6, 6, 18, 'delete', '2018-08-22 02:35:40'),
+	(7, 5, 18, 'delete', '2018-08-22 02:39:47');
+/*!40000 ALTER TABLE `user_items` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

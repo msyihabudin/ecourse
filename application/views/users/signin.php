@@ -4,25 +4,24 @@ if (isset($this->session->userdata['user_signed_in'])) {
 }
 ?>
 
-<div class="ui text container">
-    <h1>Sign In</h1>
-    <p>Don't have an account? <?= anchor('signup', 'Create free account'); ?></p>
-
-    <?= form_open('users/auth_signin', 'class="ui form signin"'); ?>
-        <div class="ui error message"></div>
-        <div class="field">
-            <label for="email">Email</label>
-            <?= form_input(array('type'=> 'email', 'name'=>'email'), '', 'placeholder="Email Address"'); ?>
-        </div>
-        <div class="field">
-            <label for="email">Password</label>
-            <?= form_password('password', '', 'placeholder="Password"'); ?>
-        </div>
-        <div class="field">
-            <a href="#"><i class="info circle icon"></i>Forgot your password?</a>
-        </div>
-        <div class="ui text center aligned container">
-            <?= form_submit('auth_signin', 'Sign In', 'class="ui large primary button"'); ?>
-        </div>
+<div class="login-page">
+  <div class="form">
+    <div class="logo_container">
+        <a href="<?= base_url(); ?>">
+            <div class="logo_text">E<span>Course</span></div>
+        </a>
+    </div><br>
+    <?php if($this->session->flashdata("messagePr")){?>
+    <div class="alert alert-info">      
+        <?php echo $this->session->flashdata("messagePr")?>
+    </div>
+    <?php } ?>
+    <br>
+    <?= form_open('users/auth_signin', 'class="login-form"'); ?>
+      <?= form_input(array('type'=> 'text', 'name'=>'email'), '', 'placeholder="Username or Email Address"'); ?>
+      <?= form_password('password', '', 'placeholder="Password"'); ?>
+      <button name="auth_signin">Login</button>
+      <p class="message">Not registered? <?= anchor('signup', 'Create an account'); ?></p>
     <?= form_close(); ?>
+  </div>
 </div>

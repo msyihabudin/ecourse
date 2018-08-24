@@ -23,7 +23,7 @@
                         <?php } ?>
                         <!-- Profile Image -->
                         <div class="box box-success pad-profile">
-                            <div class="box-header with-border">
+                          <div class="box-header with-border">
                             <h5 class="box-title">My Account <small></small></h5>
                           </div>
                           <form method="post" enctype="multipart/form-data" action="<?php echo base_url().'admin/add_edit' ?>" class="form-label-left">
@@ -54,8 +54,7 @@
                                   <select name="status" id="status" class="form-control">
                                         <option value="active" <?php echo (isset($account[0]->status) && $account[0]->status == 'active' ?'selected="selected"':'');?> >Active</option>
                                         
-                                        <option value="deleted" <?php echo (isset($account[0]->status) && $account[0]->status == 'deleted' ?'selected="selected"':'');?> >Deleted</option>
-                                        
+                                        <option value="inactive" <?php echo (isset($account[0]->status) && $account[0]->status == 'deleted' ?'selected="selected"':'');?> >Inactive</option>                                        
                                   </select>
                                 </div>                                
 
@@ -98,7 +97,7 @@
                               </div>
                              <!-- /.box-body -->
                             </div>
-                          </form>                  
+                          </form>                
                           <!-- /.box -->
                         </div>
                         <!-- /.content -->                        

@@ -37,9 +37,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3">Lesson Badge (type: png, jpg)</label>
+                            <label class="col-md-3">Lesson File (type: doc, pdf, ppt)</label>
                             <div class="col-sm-9">
-                                <?= form_upload('course_lesson_badge', '', array('required'=>'', 'class'=>'form-control')); ?>
+                                <?= form_upload('course_lesson_file', '', array('required'=>'', 'class'=>'form-control')); ?>
                             </div>
                         </div>
                     <div class="border-top">

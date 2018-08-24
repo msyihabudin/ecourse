@@ -21,7 +21,7 @@ else {
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title><?= $title ?> | Admin ECourse</title>
+    <title><?= $title; ?> | Admin ECourse</title>
     <!-- Custom CSS -->
     <link href="<?= base_url("assets/backend/assets/libs/flot/css/float-chart.css"); ?>" rel="stylesheet">
     <!-- Custom CSS -->

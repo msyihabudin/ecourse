@@ -315,18 +315,22 @@ section
 }
 .login_button
 {
-	width: 160px;
+	width: 260px;
 	height: 100%;
 	background: #f3f3f3;
 	text-align: center;
+	padding-left: 10px;
+	display: block;
+	font-size: 14px;
+	line-height: 40px;
 }
 .login_button a
 {
-	display: block;
-	font-size: 14px;
-	font-weight: 500;
-	line-height: 40px;
 	color: #384158;
+}
+.login_button a:hover
+{
+	font-weight: 500;
 }
 
 /*********************************

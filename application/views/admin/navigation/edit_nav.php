@@ -1,77 +1,90 @@
-<div class="row">
-	<div class="col-xs-12">
-		<?= validation_errors() ?>
+<div class="page-wrapper">
+     <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title"><?= $title; ?></h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <?= $breadcrumbs;?>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+    	<div class="row">
+    		<?= validation_errors() ?>
 
-		<?php if (isset($message)): ?>
-			<div class="alert alert-danger" role="alert">
-				<?= $message ?>
-			</div>
-		<?php endif ?>
+			<?php if (isset($message)): ?>
+				<div class="alert alert-danger" role="alert">
+					<?= $message ?>
+				</div>
+			<?php endif ?>
+			<div class="col-md-8">
+				<?= form_open(current_url());?>
+                <div class="card">
+                    <div class="card-body">
+                    	<div class="form-group">
+							<label for="title">Title</label>
+							<p class="help-block">This is the text shown in the navigation bar that visitors see and click.</p>
+							<?= form_input(['name' => 'title', 'class' => 'form-control', 'value' => (set_value('title')) ? set_value('title') : $nav['title'], 'placeholder' => 'Title' ]) ?>
+				  		</div>
 
-		<h2><?= lang('nav_new_hdr');?></h2>
-		<?= form_open(current_url());?>
-		<p><?= lang('edit_nav_subheading');?></p>
-	</div>
+				  		<div class="form-group">
+							<label for="description">Description</label>
+							<p class="help-block">This is the description of this link and it used for the title field. Visitors see this when hovering the mouse over the link text.</p>
+							<?= form_input(['name' => 'description', 'class' => 'form-control', 'value' => (set_value('description')) ? set_value('description') : $nav['description'], 'placeholder' => 'Description' ]) ?>
+				  		</div>                    	
+                    </div>
+                </div>
+        		<div class="border-top">
+                    <div class="card-body">
+                        <input class="btn btn-default" type="submit" value="Save Navigation Item">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                    	<h4>Navigation Link</h4>
+						<p>Below you can link to a specific page or post. Leave all options blank to point to your homepage.</p>
+
+						<div class="form-group">
+							<label for="page">Choose A Page</label>
+							<p class="help-block">Choose from existing pages.</p>
+							<?= form_dropdown('page', $page_slugs, $nav['url'], 'class="form-control"'); ?>
+				  		</div>	
+
+				  		<div class="form-group">
+							<label for="post">Choose A Blog Post</label>
+							<p class="help-block">Choose from existing blog posts.</p>
+							<?= form_dropdown('post', $post_slugs, $nav['url'], 'class="form-control"'); ?>
+				  		</div>	
+						<!-- Developers, uncomment to use manual uri entry-->	
+						<div class="form-group">
+							<label for="url">URI</label>
+							<p class="help-block">This is the URI portion of your link. We automatically add your site's URL for you when generating links.</p>
+							<?= form_input(['name' => 'url', 'class' => 'form-control', 'value' => set_value('url'), 'placeholder' => 'about   <-- example usage' ]) ?>
+				  		</div>
+				  		
+				  		<h4>Optional</h4>
+							
+				  		<div class="form-group">
+							<label for="status">Redirection</label>
+							<p class="help-block">If you changed the 'Choose A Page' or 'Choose A Post' field we automatically set up an HTTP 301 (perminent) redirect for you so the old URI points to the new page URI. Here, you can override the default settings.</p>
+							<?= form_dropdown('redirection',['none' => 'Do Not Redirect Old URL Title', '301' => 'Permanently Redirect to new URL Title', '302' => 'Temporarily Redirect to new URL Title'] , '301', ['class' => 'form-control', 'placeholder' => 'Redirection']) ?>
+				  		</div>
+
+				  		<div class="form-group">
+							<label for="status">Type</label>
+							<p class="help-block">If you changed the 'Choose A Page' or 'Choose A Post', please choose if this navigation item points to a page or a post. We need this to correctly point the redirection.</p>
+							<?= form_dropdown('type',['page' => 'This is a Page', 'post' => 'This is a Blog Post'] , 'page', ['class' => 'form-control', 'placeholder' => 'Type']) ?>
+				  		</div>
+                    </div>
+            	</div>
+            	<?= form_close();?>
+            </div>
+        </div>
+    </div>
+    <?php $this->load->view('admin/partials/footer.php'); ?>
 </div>
-<div>
-	<div class="row m-t-m">
-		<div class="col-xs-8">
-			<div class="form-group">
-				<label for="title"><?= lang('nav_form_title_text') ?></label>
-				<p class="help-block"><?= lang('nav_form_title_help_text') ?></p>
-				<?= form_input(['name' => 'title', 'class' => 'form-control', 'value' => (set_value('title')) ? set_value('title') : $nav['title'], 'placeholder' => lang('nav_form_title_text') ]) ?>
-	  		</div>
-
-	  		<div class="form-group">
-				<label for="description"><?= lang('nav_form_desc_text') ?></label>
-				<p class="help-block"><?= lang('nav_form_desc_help_text') ?></p>
-				<?= form_input(['name' => 'description', 'class' => 'form-control', 'value' => (set_value('description')) ? set_value('description') : $nav['description'], 'placeholder' => lang('nav_form_desc_text') ]) ?>
-	  		</div>
-
-	  		
-		</div>
-		<div class="col-xs-4">
-
-			<h4><?= lang('nav_right_side_hdr') ?></h4>
-			<p><?= lang('nav_right_side_desc') ?></p>
-
-			<div class="form-group">
-				<label for="page"><?= lang('nav_form_choose_page') ?></label>
-				<p class="help-block"><?= lang('nav_form_choose_page_help_text') ?></p>
-				<?= form_dropdown('page', $page_slugs, $nav['url'], 'class="form-control"'); ?>
-	  		</div>	
-
-	  		<div class="form-group">
-				<label for="post"><?= lang('nav_form_choose_post') ?></label>
-				<p class="help-block"><?= lang('nav_form_choose_post_help_text') ?></p>
-				<?= form_dropdown('post', $post_slugs, $nav['url'], 'class="form-control"'); ?>
-	  		</div>	
-			<!-- Developers, uncomment to use manual uri entry
-			<div class="form-group">
-				<label for="url"><?= lang('nav_form_url_text') ?></label>
-				<p class="help-block"><?= lang('nav_form_url_help_text') ?></p>
-				<?= form_input(['name' => 'url', 'class' => 'form-control', 'value' => set_value('url'), 'placeholder' => lang('nav_form_url_text_example') ]) ?>
-	  		</div>
-	  		-->	
-	  		<h4><?= lang('optional_hdr') ?></h4>
-				
-	  		<div class="form-group">
-				<label for="status"><?= lang('nav_form_redirect_text') ?></label>
-				<p class="help-block"><?= lang('nav_form_redirect_help_text') ?></p>
-				<?= form_dropdown('redirection',['none' => lang('page_form_redirect_none'), '301' => lang('page_form_redirect_perm'), '302' => lang('page_form_redirect_temp')] , '301', ['class' => 'form-control', 'placeholder' => lang('nav_form_redirect_text')]) ?>
-	  		</div>
-
-	  		<div class="form-group">
-				<label for="status"><?= lang('nav_form_type_text') ?></label>
-				<p class="help-block"><?= lang('nav_form_type_help_text') ?></p>
-				<?= form_dropdown('type',['page' => lang('nav_form_type_page'), 'post' => lang('nav_form_type_post')] , 'page', ['class' => 'form-control', 'placeholder' => lang('nav_form_type_text')]) ?>
-	  		</div>
-
-	  		
-		</div>
-		<div class="form-group">
-			<input class="btn btn-lg btn-default btn-block" type="submit" value="<?php echo lang('nav_save_btn');?>">
-		</div>	
-	</div>
-</div>
-</form>

@@ -7,10 +7,12 @@ class Mybreadcrumb {
 	
 	function __construct()
 	{
-		$this->tags['open'] = "<ol class='breadcrumb'>";
+		/*$this->tags['open'] = "<ol class='breadcrumb'>";
 		$this->tags['close'] = "</ol>";
 		$this->tags['itemOpen'] = "<li class='breadcrumb-item'>";
-		$this->tags['itemClose'] = "</li>";
+		$this->tags['itemClose'] = "</li>";*/
+
+		$this->tags = array("open" => "<ol class='breadcrumb'>", "close" => "</ol>", "itemOpen" => "<li class='breadcrumb-item'>", "itemClose" => "</li>");
 	}
 
 	function add($title, $href){		

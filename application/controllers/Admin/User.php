@@ -47,124 +47,160 @@ class User extends CI_Controller {
         $this->template->load('base_admin', 'admin/edit_user', $data);
     }
 
-    public function add_edit($id = '') {   
+    public function deleteUser($id) {
+        // remove the nav
+        if ($this->adminmodel->delete_user($id))
+        {
+            //it worked
+            $this->session->set_flashdata('messagePr', 'User removed Successfully');
+            redirect( base_url().'admin/user', 'refresh');
+        }
+        // failed to remove
+        $this->session->set_flashdata('messagePr', 'Unable to remove User. Please try again.');
+        redirect( base_url().'admin/user', 'refresh');
+    }
+
+    public function add_edit($id = '') {
+        is_login();
         $data = $this->input->post();
-        $profile_pic = 'user.png';
+        
         if($this->input->post('users_id')) {
             $id = $this->input->post('users_id');
         }
-
-        $newname = $this->input->post('profilepic');
-        $profile_pic = $newname;
         
         $config['upload_path'] = './assets/image/user/';
-        $config['allowed_types'] = 'png|jpg';
+        $config['allowed_types'] = 'png|jpg|jpeg';
         $config['max_size'] = '1000';
-
-        $this->upload->initialize($config);
-
-        if ($this->upload->do_upload()) {
-             //do nothing!
-        } else {
-            $error = array('error' => $this->upload->display_errors());
-            foreach ($error as $value) {
-                $this->session->set_flashdata('messagePr', $value);    
-            }
-            redirect(base_url().'admin/user', 'refresh');
-        }
-
-        if(!empty($this->input->post('profilepic'))) {  
-            
-        } else {
-            //$data[$name]='';
-            $profile_pic ='user.png';
-        }
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);        
 
         if(!empty($id)) {
             $data = $this->input->post();
-            if($this->input->post('status') != '') {
-                $data['status'] = $this->input->post('status');
-            }
-            if($this->input->post('users_id') == 1) { 
-                $data['user_type'] = 'admin';
-            }
-            if($this->input->post('password') != '') {
-                if($this->input->post('currentpassword') != '') {
-                    $old_row = getDataByid('users', $this->input->post('users_id'), 'users_id');
-                    if(password_verify($this->input->post('currentpassword'), $old_row->password)){
-                        if($this->input->post('password') == $this->input->post('confirmPassword')){
-                            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-                            $data['password']= $password;     
+
+            if ($this->upload->do_upload('profile_pic') || $_FILES['profile_pic']['size'] == 0) {
+                $upload_data = $this->upload->data();
+                if($_FILES['profile_pic']['size'] == 0) {  
+                    //$data[$name]='';
+                    $profile_pic ='user.png';
+                } else {
+                    $profile_pic = $upload_data['file_name'];
+                }
+
+                if($this->input->post('status') != '') {
+                    $data['status'] = $this->input->post('status');
+                }
+                if($this->input->post('users_id') == 1) { 
+                    $data['user_type'] = 'admin';
+                }
+                if($this->input->post('password') != '') {
+                    if($this->input->post('currentpassword') != '') {
+                        $old_row = getDataByid('users', $this->input->post('users_id'), 'users_id');
+                        if(password_verify($this->input->post('currentpassword'), $old_row->password)){
+                            if($this->input->post('password') == $this->input->post('confirmPassword')){
+                                $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+                                $data['password']= $password;     
+                            } else {
+                                $this->session->set_flashdata('messagePr', 'Password and confirm password should be same...');
+                                redirect( base_url().'admin/user', 'refresh');
+                            }
                         } else {
-                            $this->session->set_flashdata('messagePr', 'Password and confirm password should be same...');
-                            //redirect( base_url().'admin/user', 'refresh');
+                            $this->session->set_flashdata('messagePr', 'Enter Valid Current Password...');
+                            redirect( base_url().'admin/user', 'refresh');
                         }
                     } else {
-                        $this->session->set_flashdata('messagePr', 'Enter Valid Current Password...');
-                        //redirect( base_url().'admin/user', 'refresh');
+                        $this->session->set_flashdata('messagePr', 'Current password is required');
+                        redirect( base_url().'admin/user', 'refresh');
                     }
-                } else {
-                    $this->session->set_flashdata('messagePr', 'Current password is required');
-                    //redirect( base_url().'admin/user', 'refresh');
                 }
-            }
-            $id = $this->input->post('users_id');
-            
-            unset($data['fileOld']);
-            unset($data['currentpassword']);
-            unset($data['confirmPassword']);
-            unset($data['users_id']);
-            unset($data['user_type']);
-            if(isset($data['edit'])){
-                unset($data['edit']);
-            }
-            if($data['password'] == ''){
-                unset($data['password']);
-            }
-            $data['profile_pic'] = $profile_pic;
-            if ($this->adminmodel->updateRow('users', 'users_id', $id, $data)) {
-                $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
-                //redirect(base_url().'admin/user', 'refresh');
+                $id = $this->input->post('users_id');
+                
+                unset($data['currentpassword']);
+                unset($data['confirmPassword']);
+                unset($data['users_id']);
+
+                if(isset($data['edit'])){
+                    unset($data['edit']);
+                }
+                if($data['password'] == ''){
+                    unset($data['password']);
+                }
+
+                $data['profile_pic'] = $profile_pic;
+                
+                if ($this->adminmodel->updateRow('users', 'users_id', $id, $data)) {
+                    $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
+                    redirect(base_url().'admin/user', 'refresh');
+                } else {
+                    $this->session->set_flashdata('messagePr', 'Cannot save edit data!');
+                    redirect(base_url().'admin/user', 'refresh');
+                }
             } else {
-                $this->session->set_flashdata('messagePr', 'Cannot save edit data!');
+                $error = array('error' => $this->upload->display_errors());
+                foreach ($error as $value) {
+                    $this->session->set_flashdata('messagePr', $value);    
+                }
                 redirect(base_url().'admin/user', 'refresh');
             }
         } else { 
             if($this->input->post('user_type') != 'admin') {
                 $data = $this->input->post();
-                $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-                $checkValue = $this->adminmodel->check_exists('users','email', $this->input->post('email'));
-                if($checkValue == false)  {  
-                    $this->session->set_flashdata('messagePr', 'This Email Already Registered with us..');
-                    redirect( base_url().'admin/user', 'refresh');
-                }
-                $checkValue1 = $this->adminmodel->check_exists('users','name',$this->input->post('name'));
-                if($checkValue1==false) {  
-                    $this->session->set_flashdata('messagePr', 'Username Already Registered with us..');
-                    redirect( base_url().'admin/user', 'refresh');
-                }
-                $data['status'] = 'active';
-                if(setting_all('admin_approval') == 1) {
-                    $data['status'] = 'deleted';
-                }
-                
-                if($this->input->post('status') != '') {
-                    $data['status'] = $this->input->post('status');
-                }
-                //$data['token'] = $this->generate_token();
-                $data['user_id'] = $this->user_id;
-                $data['password'] = $password;
-                $data['profilepic'] = $profile_pic;
-                $data['is_deleted'] = 0;
-                if(isset($data['password_confirmation'])){
-                    unset($data['password_confirmation']);    
-                }
-                if(isset($data['call_from'])){
-                    unset($data['call_from']);    
-                }
-                unset($data['submit']);
-                $this->adminmodel->insertRow('users', $data);
-                redirect( base_url().'admin/'.$redirect, 'refresh');
+
+                if ($this->upload->do_upload('profile_pic') || $_FILES['profile_pic']['size'] == 0) {
+                    $upload_data = $this->upload->data();
+                    if($_FILES['profile_pic']['size'] == 0) {  
+                        //$data[$name]='';
+                        $profile_pic ='user.png';
+                    } else {
+                        $profile_pic = $upload_data['file_name'];
+                    }
+
+                    $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+                    $checkValue = $this->adminmodel->check_exists('users','email', $this->input->post('email'));
+                    if($checkValue == false)  {  
+                        $this->session->set_flashdata('messagePr', 'This Email Already Registered with us..');
+                        redirect( base_url().'admin/user', 'refresh');
+                    }
+                    $checkValue1 = $this->adminmodel->check_exists('users','name',$this->input->post('name'));
+                    if($checkValue1==false) {  
+                        $this->session->set_flashdata('messagePr', 'Username Already Registered with us..');
+                        redirect( base_url().'admin/user', 'refresh');
+                    }
+                    
+                    if($this->input->post('status') != '') {
+                        $data['status'] = $this->input->post('status');
+                    }
+                    if($this->input->post('password') != '') {
+                        if($this->input->post('password') == $this->input->post('confirmpassword')){
+                            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+                            $data['password']= $password;     
+                        } else {
+                            $this->session->set_flashdata('messagePr', 'Password and confirm password should be same...');
+                            redirect( base_url().'admin/user', 'refresh');
+                        }
+                    }
+
+                    //$data['token'] = $this->generate_token();
+                    $data['user_id'] = $this->user_id;
+                    $data['password'] = $password;
+                    $data['profile_pic'] = $profile_pic;
+                    $data['is_deleted'] = 0;
+                    unset($data['confirmpassword']);
+                    unset($data['submit']);
+                    
+                    if ($this->adminmodel->insertRow('users', $data)) {
+                        $this->session->set_flashdata('messagePr', 'Your data added Successfully');
+                        redirect(base_url().'admin/user', 'refresh');
+                    } else {
+                        $this->session->set_flashdata('messagePr', 'Cannot save data!');
+                        redirect(base_url().'admin/user', 'refresh');
+                    }
+                } else {
+                    $error = array('error' => $this->upload->display_errors());
+                    foreach ($error as $value) {
+                        $this->session->set_flashdata('messagePr', $value);    
+                    }
+                    redirect(base_url().'admin/user', 'refresh');
+                }                
             } else {
                 $this->session->set_flashdata('messagePr', 'You Don\'t have this autherity ' );
                 redirect( base_url().'admin/signup', 'refresh');
@@ -190,5 +226,15 @@ class User extends CI_Controller {
             move_uploaded_file($tmpname,"assets/image/user/".$newname);
             return $newname;
         }
+    }
+
+    function getDataByid($tableName='',$columnValue='',$colume='')
+    {  
+        $CI = get_instance();
+        $CI->db->select('*');
+        $CI->db->from($tableName);
+        $CI->db->where($colume , $columnValue);
+        $query = $CI->db->get();
+        return $result = $query->row();
     }
 }

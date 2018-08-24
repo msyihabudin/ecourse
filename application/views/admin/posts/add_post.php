@@ -12,41 +12,36 @@
         </div>
     </div>
     <div class="container-fluid">
+    	<?= validation_errors() ?>
+
+		<?php if (isset($message)): ?>
+			<div class="alert alert-danger" role="alert">
+				<?= $message ?>
+			</div>
+		<?php endif ?>
     	<div class="row">
-    		<?= validation_errors() ?>
-
-			<?php if (isset($message)): ?>
-				<div class="alert alert-danger" role="alert">
-					<?= $message ?>
-				</div>
-			<?php endif ?>
-
 			<div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
                     	<?= form_open_multipart('admin/posts/add_post');?>
                         <div class="form-group">
 							<label for="title">Post Title</label>
-							<p class="help-block">Enter the title of your post.</p>
 							<?= form_input(['name' => 'title', 'class' => 'form-control', 'placeholder' => 'Post Title' ]) ?>
 				  		</div>
 
 				  		<div class="form-group">
 							<label for="status">Status</label>
-							<p class="help-block">Choose if you want the post to be Live or Draft.</p>
 							<?= form_dropdown('status',['published' => 'Publish', 'draft' => 'Draft'] , 'draft', ['class' => 'form-control', 'placeholder' => 'Status']) ?>
 				  		</div>
 
 				  		<div class="form-group">
 							<label for="content">Post Content</label>
-							<p class="help-block">Enter the content of your post below. Use the editor to help you format with Markdown.</p>
 							<?= form_textarea(['name' => 'content', 'id' => 'content', 'value' => set_value('content'), 'class' => 'form-control', 'placeholder' => 'Post Content']) ?>
 				  		</div>
 
 
 				  		<div class="form-group">
 							<label for="excerpt">Post Excerpt</label>
-							<p class="help-block">Enter a short ~200 character excerpt (teaser) of your post below.</p>
 							<?= form_textarea(['name' => 'excerpt', 'class' => 'form-control', 'placeholder' => 'Post Excerpt']) ?>
 				  		</div>
                     </div>
@@ -62,7 +57,6 @@
                     <div class="card-body">
                         <div class="form-group">
 							<label for="excerpt">Categories</label>
-							<p class="help-block">Choose any categories.  To choose multiple categories press CMD/CTRL + Click your choices.</p>
 							<?= form_multiselect('cats[]', $cats, null, ['class' => 'form-control']) ?>
 				  		</div>
 

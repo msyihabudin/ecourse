@@ -33,14 +33,46 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-md-3">Price<br><p>(Set 0 if course is <strong>free</strong>)</p></label>
+                            <div class="col-sm-9">
+                                <?= form_input('price', $course['price'], array('placeholder'=>'Price', 'required'=>'', 'class'=>'form-control')); ?>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3">Course Categories</label>
+                            <div class="col-sm-9">
+                                <select name="id_quest" class="form-control">
+                                    <?php foreach($quest as $value) { ?>
+                                    <option value="<?= $value->id;?>" <?= (!empty($course['id_quest']) and ($course['id_quest'] == $value->id))? 'selected':'' ?>><?= $value->quest_name;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-md-3">Enroll URL</label>
                             <div class="col-sm-2">
                                 courses/
                             </div>
                             <div class="col-sm-7">
-                                <?= form_input('enroll_url', $course['enroll_url'], array('placeholder'=>'Enrol URL', 'class'=>'form-control')); ?>
+                                <?php 
+                                $enrollurl = explode('courses/', $course['enroll_url']);
+                                if (count($enrollurl) > 1) {
+                                    $result = $enrollurl[1];
+                                }else{
+                                    $result = $enrollurl[0];
+                                }
+                                ?>
+                                <?= form_input('enroll_url', $result, array('placeholder'=>'Enrol URL', 'class'=>'form-control')); ?>
                             </div>
-                        </div>                
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3">Course Badge (type: png, jpg)</label>
+                            <div class="col-sm-9">
+                                <?= form_upload('course_badge', '', array('class' => 'form-control')); ?>
+                            </div>
+                        </div>              
                     </div>
                     <div class="border-top">
                         <div class="card-body">

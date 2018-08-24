@@ -2,12 +2,12 @@
 
 class PostModel extends CI_Model
 {
-	// Protected or private properties
-	protected $_table;
-	
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->load->model('catmodel');
+		
 	}
 
 	public function get_posts()
@@ -219,5 +219,358 @@ class PostModel extends CI_Model
 
 		// return array
 		return $ret;
+	}
+
+	public function get_home_bignews($offset = 0)
+	{
+		// today's date
+		$current_date = date('Y-m-d');
+
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+		
+		// rediculous db call
+		$this->db->select($select)
+					->from('posts')
+					->join('users', 'posts.author = users.users_id')
+					->join('posts_to_categories', 'posts.id = posts_to_categories.post_id')
+					->where('posts.status', 'published')
+					->where('posts.date_posted <= ', $current_date)
+					->where('posts_to_categories.category_id', 5)
+					->order_by('posts.date_posted', 'DESC')
+					->order_by('posts.id', 'DESC')
+					->limit(1, $offset);
+			
+		$query = $this->db->get();
+
+		//print_r($query->result_array());
+		
+		// did we find anything?	
+		if ($query->num_rows() > 0)
+		{
+			// yes...
+			$result['posts'] = $query->result_array();
+
+			// process for needed fields.
+			foreach ($result['posts'] as &$item)
+			{
+				$item['url'] = news_url($item['url_title'], $item['date_posted']);
+				$item['display_name'] = $item['fullname'];
+				$item['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($item['id']));
+				$item['date_posted'] = DateTime::createFromFormat('Y-m-d', $item['date_posted'])->format('D M d Y');
+			}
+
+			$result['post_count'] = $query->num_rows();
+
+			return json_decode(json_encode($result));
+		}
+
+		// failed... bounce.
+		return array();
+	}
+
+	public function get_home_news($offset = 1)
+	{
+		// today's date
+		$current_date = date('Y-m-d');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+		
+		// rediculous db call
+		$this->db->select($select)
+					->from('posts')
+					->join('users', 'posts.author = users.users_id')
+					->join('posts_to_categories', 'posts.id = posts_to_categories.post_id')
+					->where('posts.status', 'published')
+					->where('posts.date_posted <= ', $current_date)
+					->where('posts_to_categories.category_id', 5)
+					->order_by('posts.date_posted', 'DESC')
+					->order_by('posts.id', 'DESC')
+					->limit(4, $offset);
+			
+		$query = $this->db->get();
+		
+		// did we find anything?	
+		if ($query->num_rows() > 0)
+		{
+			// yes...
+			$result['posts'] = $query->result_array();
+
+			// process for needed fields.
+			foreach ($result['posts'] as &$item)
+			{
+				$item['url'] = news_url($item['url_title'], $item['date_posted']);
+				$item['display_name'] = $item['fullname'];
+				$item['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($item['id']));
+				$item['date_posted'] = DateTime::createFromFormat('Y-m-d', $item['date_posted'])->format('D M d Y');
+			}
+
+			$result['post_count'] = $query->num_rows();
+
+			return json_decode(json_encode($result));
+		}
+
+		// failed... bounce.
+		return array();
+	}
+
+	public function get_home_events($offset = 0)
+	{
+		// today's date
+		$current_date = date('Y-m-d');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+		
+		// rediculous db call
+		$this->db->select($select)
+					->from('posts')
+					->join('users', 'posts.author = users.users_id')
+					->join('posts_to_categories', 'posts.id = posts_to_categories.post_id')
+					->where('posts.status', 'published')
+					->where('posts.date_posted <= ', $current_date)
+					->where('posts_to_categories.category_id', 4)
+					->order_by('posts.date_posted', 'DESC')
+					->order_by('posts.id', 'DESC')
+					->limit(3, $offset);
+			
+		$query = $this->db->get();
+		
+		// did we find anything?	
+		if ($query->num_rows() > 0)
+		{
+			// yes...
+			$result['posts'] = $query->result_array();
+
+			// process for needed fields.
+			foreach ($result['posts'] as &$item)
+			{
+				$item['url'] = events_url($item['url_title'], $item['date_posted']);
+				$item['display_name'] = $item['fullname'];
+				$item['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($item['id']));
+				$item['date_posted'] = DateTime::createFromFormat('Y-m-d', $item['date_posted'])->format('F j');
+			}
+
+			$result['post_count'] = $query->num_rows();
+
+			return json_decode(json_encode($result));
+		}
+
+		// failed... bounce.
+		return array();
+	}
+
+	public function get_blogs($offset = 0)
+	{
+		// today's date
+		$current_date = date('Y-m-d');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+		
+		// rediculous db call
+		$this->db->select($select)
+					->from('posts')
+					->join('users', 'posts.author = users.users_id')
+					->join('posts_to_categories', 'posts.id = posts_to_categories.post_id')
+					->where('posts.status', 'published')
+					->where('posts.date_posted <= ', $current_date)
+					->where('posts_to_categories.category_id', 3)
+					->order_by('posts.date_posted', 'DESC')
+					->order_by('posts.id', 'DESC');
+			
+		$query = $this->db->get();
+		
+		// did we find anything?	
+		if ($query->num_rows() > 0)
+		{
+			// yes...
+			$result['posts'] = $query->result_array();
+
+			// process for needed fields.
+			foreach ($result['posts'] as &$item)
+			{
+				$item['url'] = post_url($item['url_title'], $item['date_posted']);
+				$item['display_name'] = $item['fullname'];
+				$item['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($item['id']));
+				$item['date_posted'] = DateTime::createFromFormat('Y-m-d', $item['date_posted'])->format('D M d Y');
+			}
+
+			$result['post_count'] = $query->num_rows();
+
+			return json_decode(json_encode($result));
+		}
+
+		// failed... bounce.
+		return array();
+	}
+
+	public function get_news($offset = 0)
+	{
+		// today's date
+		$current_date = date('Y-m-d');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+		
+		// rediculous db call
+		$this->db->select($select)
+					->from('posts')
+					->join('users', 'posts.author = users.users_id')
+					->join('posts_to_categories', 'posts.id = posts_to_categories.post_id')
+					->where('posts.status', 'published')
+					->where('posts.date_posted <= ', $current_date)
+					->where('posts_to_categories.category_id', 5)
+					->order_by('posts.date_posted', 'DESC')
+					->order_by('posts.id', 'DESC');
+			
+		$query = $this->db->get();
+		
+		// did we find anything?	
+		if ($query->num_rows() > 0)
+		{
+			// yes...
+			$result['posts'] = $query->result_array();
+
+			// process for needed fields.
+			foreach ($result['posts'] as &$item)
+			{
+				$item['url'] = news_url($item['url_title'], $item['date_posted']);
+				$item['display_name'] = $item['fullname'];
+				$item['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($item['id']));
+				$item['date_posted'] = DateTime::createFromFormat('Y-m-d', $item['date_posted'])->format('M d Y');
+			}
+
+			$result['post_count'] = $query->num_rows();
+
+			return json_decode(json_encode($result));
+		}
+
+		// failed... bounce.
+		return array();
+	}
+
+	public function get_news_details($url = NULL)
+	{
+		// load markdown lib
+		$this->load->library('markdown');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+
+		$this->db->select($select)
+					->join('users', 'posts.author = users.users_id')
+					->where('posts.status', 'published')
+					->where('posts.url_title', $url);
+
+
+		$this->db->limit(1);
+			
+		$query = $this->db->get('posts');
+			
+		if ($query->num_rows() == 1)
+		{
+			// yep
+			$result = $query->row_array();
+
+			// build the needed vaules
+			$result['content'] = $this->markdown->parse($result['content']);
+			$result['url'] = news_url($result['url_title']);
+			$result['display_name'] = $result['fullname'];
+			$result['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($result['id']));
+
+			return $result;
+		}
+		return false;
+	}
+
+	public function get_blogs_details($url = NULL)
+	{
+		// load markdown lib
+		$this->load->library('markdown');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+
+		$this->db->select($select)
+					->join('users', 'posts.author = users.users_id')
+					->where('posts.status', 'published')
+					->where('posts.url_title', $url);
+
+
+		$this->db->limit(1);
+			
+		$query = $this->db->get('posts');
+			
+		if ($query->num_rows() == 1)
+		{
+			// yep
+			$result = $query->row_array();
+
+			// build the needed vaules
+			$result['content'] = $this->markdown->parse($result['content']);
+			$result['url'] = post_url($result['url_title']);
+			$result['display_name'] = $result['fullname'];
+			$result['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($result['id']));
+
+			return $result;
+		}
+		return false;
+	}
+
+	public function get_event_details($url = NULL)
+	{
+		// load markdown lib
+		$this->load->library('markdown');
+		$select = array(
+			'posts.*', 'users.fullname'
+			);
+
+		$this->db->select($select)
+					->join('users', 'posts.author = users.users_id')
+					->where('posts.status', 'published')
+					->where('posts.url_title', $url);
+
+
+		$this->db->limit(1);
+			
+		$query = $this->db->get('posts');
+			
+		if ($query->num_rows() == 1)
+		{
+			// yep
+			$result = $query->row_array();
+
+			// build the needed vaules
+			$result['content'] = $this->markdown->parse($result['content']);
+			$result['url'] = events_url($result['url_title']);
+			$result['display_name'] = $result['fullname'];
+			$result['categories'] = $this->catmodel->get_categories_by_ids($this->get_post_categories($result['id']));
+
+			return $result;
+		}
+		return false;
+	}
+
+	public function get_post_categories($post_id)
+	{
+		$this->db->select('category_id');
+		$this->db->where('post_id', $post_id);
+		
+		$query = $this->db->get('posts_to_categories');
+			
+		if ($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			
+			foreach ($result as $category)
+			{
+				$categories[] = $category['category_id'];
+			}
+			
+			return $categories;
+		}
 	}
 }

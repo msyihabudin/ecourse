@@ -6,6 +6,7 @@ class Courses extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('coursemodel');
+        $this->load->model('questmodel');
         //$this->load->library('mybreadcrumb');
     }
 
@@ -58,6 +59,7 @@ class Courses extends CI_Controller {
         $this->mybreadcrumb->add('Courses', base_url('admin/courses'));
         $this->mybreadcrumb->add('Add New Courses', base_url('admin/courses/add'));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $data['quest'] = $this->questmodel->getAllQuest()->result();
 
         $this->template->load('base_admin', 'admin/courses/add_course', $data);
     }
@@ -107,10 +109,21 @@ class Courses extends CI_Controller {
 
                 $data_course['course_name'] = $this->input->post('name');
                 $data_course['description'] = $this->input->post('description');
+                $data_course['price'] = $this->input->post('price');
+                $data_course['id_quest'] = $this->input->post('id_quest');
                 $data_course['course_badge'] = site_url().$config['upload_path'].$upload_data['file_name'];
                 $data_course['enroll_url'] = 'courses/'.$this->input->post('enroll_url');
 
                 if ($this->db->insert('course', $data_course)) {
+                    $insert_id = $this->db->insert_id();
+                    $data_badge = array(
+                        'id' => $insert_id,
+                        'nama_badge' => $this->input->post('name').' Badge',
+                        'img' => site_url().$config['upload_path'].$upload_data['file_name']
+                    );
+
+                    $this->db->insert('badge', $data_badge);
+
                     $this->session->set_flashdata('messagePr', 'Your data added Successfully..');
                     redirect( base_url().'admin/courses', 'refresh');
                 }else{
@@ -161,28 +174,61 @@ class Courses extends CI_Controller {
         $this->mybreadcrumb->add('Courses', base_url('admin/courses'));
         $this->mybreadcrumb->add('Edit Courses', base_url('admin/courses/edit/'.$id_course));
         $data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $data['quest'] = $this->questmodel->getAllQuest()->result();
 
         $this->template->load('base_admin', 'admin/courses/edit_course', $data);
     }
 
     public function save_edit_course() {
         is_login();
+
         if (isset($_POST['save_edit'])) {
-            $id = $this->input->post('id_course');
-            $data_course = array(
-                'course_name' => $this->input->post('name'),
-                'description' => $this->input->post('description'),
-                'enroll_url' => 'courses/'.$this->input->post('enroll_url')
-            );
-    
-            $this->db->where('id_course', $id);
-            if ($this->db->update('course', $data_course)) {
-                $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
-                redirect( base_url().'admin/courses', 'refresh');
-            } else {
-                $this->session->set_flashdata('messagePr', 'Cannot update data!');
-                redirect( base_url().'admin/courses', 'refresh');
-            }            
+            $config['upload_path'] = './assets/image/Badge/';
+            $config['allowed_types'] = 'png|jpg|jpeg';
+            $config['max_size'] = '1000';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            
+            $data_course = array();
+            if ($this->upload->do_upload('course_badge') || $_FILES['course_badge']['size'] == 0) {
+                $upload_data = $this->upload->data();
+                $id = $this->input->post('id_course');
+
+                $checkbadge = $this->coursemodel->getCourses($id)->row_array();
+
+                $data_course = array(
+                    'course_name' => $this->input->post('name'),
+                    'description' => $this->input->post('description'),
+                    'price' => $this->input->post('price'),
+                    'id_quest' => $this->input->post('id_quest'),
+                    'course_badge' => ($_FILES['course_badge']['size'] == 0) ? $checkbadge['course_badge'] : site_url().$config['upload_path'].$upload_data['file_name'],
+                    'enroll_url' => 'courses/'.$this->input->post('enroll_url')
+                );
+        
+                $this->db->where('id_course', $id);
+                if ($this->db->update('course', $data_course)) {
+                    $data_badge = array(
+                        'nama_badge' => $this->input->post('name').' Badge',
+                        'img' => ($_FILES['course_badge']['size'] == 0) ? $checkbadge['course_badge'] : site_url().$config['upload_path'].$upload_data['file_name']
+                    );
+                    $this->db->where('id', $id);
+                    $this->db->update('badge', $data_badge);
+
+                    $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
+                    redirect( base_url().'admin/courses', 'refresh');
+                } else {
+                    $this->session->set_flashdata('messagePr', 'Cannot update data!');
+                    redirect( base_url().'admin/courses', 'refresh');
+                }
+            }else{
+                $error = array('error' => $this->upload->display_errors());
+                //$this->template->load('base_admin', 'admin/courses/courses', $error);
+                foreach ($error as $value) {
+                    $this->session->set_flashdata('messagePr', $value);    
+                }
+                
+                redirect( base_url().'admin/courses', 'refresh'); 
+            }        
         }
         else {
             $this->session->set_flashdata('messagePr', 'Error update data!');
@@ -252,22 +298,22 @@ class Courses extends CI_Controller {
     public function save_lesson() {
         is_login();
         if (isset($_POST['add_lesson'])) {
-            $config['upload_path'] = './assets/image/Course/';
-            $config['allowed_types'] = 'png|jpg';
+            $config['upload_path'] = 'uploads/file/';
+            $config['allowed_types'] = 'doc|docx|pdf|ppt|pptx';
             $config['max_size'] = '1000';
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
             $id = $this->input->post('id_course_path');
             $data_lesson = array();
-            if ($this->upload->do_upload('course_lesson_badge')) {
+            if ($this->upload->do_upload('course_lesson_file')) {
                 $upload_data = $this->upload->data();
                 
                 $data_lesson['id_course_path'] = $id;
                 $data_lesson['name_lesson'] = $this->input->post('name');
                 $data_lesson['description'] = $this->input->post('description');
                 $data_lesson['course_lesson_url'] = $this->input->post('course_lesson_url');
-                $data_lesson['course_lesson_badge'] = site_url().$config['upload_path'].$upload_data['file_name'];
+                $data_lesson['course_lesson_file'] = site_url().$config['upload_path'].$upload_data['file_name'];
 
                 if ($this->db->insert('course_lesson', $data_lesson)) {
                     $this->session->set_flashdata('messagePr', 'Your data added Successfully..');
@@ -307,20 +353,47 @@ class Courses extends CI_Controller {
 
     public function save_edit_lesson() {
         is_login();
-        if (isset($_POST['save_edit_course'])) {
-            $id = $this->input->post('id_course_lesson');
-            $data_course = array(
-                'name_course' => $this->input->post('name'),
-                'description' => $this->input->post('description'),
-                'course_lesson_url' => $this->input->post('course_lesson_url')
-            );
-    
-            $this->db->where('id_course_lesson', $id);
-            $this->db->update('course_lesson', $data_course);
-            redirect('admin/courses/path/lesson/'.$this->input->post('id_course_path'));
-        }
-        else {
-            redirect('admin/courses/path/lesson/'.$this->input->post('id_course_path'));
+        $id_lesson = $this->input->post('id_course_lesson');
+        if (isset($_POST['save_edit_lesson'])) {
+            $config['upload_path'] = 'uploads/file/';
+            $config['allowed_types'] = 'doc|docx|pdf|ppt|pptx';
+            $config['max_size'] = '1000';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            $id = $this->input->post('id_course_path');
+            $data_lesson = array();
+            if ($this->upload->do_upload('course_lesson_file') || $_FILES['course_lesson_file']['size'] == 0) {
+                $upload_data = $this->upload->data();                
+
+                $file = $this->coursemodel->getLesson($id_lesson)->row_array();
+
+                $data_lesson = array(
+                    'name_lesson' => $this->input->post('name'),
+                    'description' => $this->input->post('description'),
+                    'course_lesson_url' => $this->input->post('course_lesson_url'),
+                    'course_lesson_file' => ($_FILES['course_lesson_file']['size'] == 0) ? $file['course_lesson_file'] : site_url().$config['upload_path'].$upload_data['file_name']
+                );
+        
+                $this->db->where('id_course_lesson', $id_lesson);                
+
+                if ($this->db->update('course_lesson', $data_lesson)) {
+                    $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
+                    redirect('admin/courses/path/lesson/'.$id);
+                }else{
+                    $this->session->set_flashdata('messagePr', 'Cannot save data!');
+                    redirect('admin/courses/path/lesson/'.$id);
+                }
+             }else{
+                $error = array('error' => $this->upload->display_errors());
+                foreach ($error as $value) {
+                    $this->session->set_flashdata('messagePr', $value);    
+                }                
+                redirect( base_url().'admin/courses/path/lesson/'.$id, 'refresh'); 
+            }
+        } else {
+            $this->session->set_flashdata('messagePr', 'Error save data!');
+            redirect( base_url().'admin/courses/path/lesson/'.$id, 'refresh'); 
         }
     }
 

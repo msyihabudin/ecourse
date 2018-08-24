@@ -315,18 +315,22 @@ section
 }
 .login_button
 {
-	width: 160px;
+	width: 260px;
 	height: 100%;
 	background: #f3f3f3;
 	text-align: center;
+	padding-left: 10px;
+	display: block;
+	font-size: 14px;
+	line-height: 40px;
 }
 .login_button a
 {
-	display: block;
-	font-size: 14px;
-	font-weight: 500;
-	line-height: 40px;
 	color: #384158;
+}
+.login_button a:hover
+{
+	font-weight: 500;
 }
 
 /*********************************
@@ -1884,3 +1888,71 @@ section
 {
 	color: #14bdee;
 }
+
+/*20180820*/
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/*20180821
+.card {
+    margin-bottom: 20px;
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 0px;
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-body h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.card-body * {
+    outline: none;
+}
+.card-body *, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.card-body h5 {
+    display: block;
+    font-size: 0.83em;
+    -webkit-margin-before: 1.67em;
+    -webkit-margin-after: 1.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}*/

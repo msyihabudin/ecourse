@@ -21,36 +21,31 @@
                                 <label class="col-md-3">Status</label>
                                 <div class="col-sm-9">
                                   <select name="status" id="" class="form-control">
-                                    <option value="active" <?php echo (isset($userData->status) && $userData->status == 'active')?'selected':''; ?> >Active</option>            
-                                    <option value="deleted" <?php echo (isset($userData->status) && $userData->status == 'deleted')?'selected':''; ?> >Deleted</option>
+                                    <option value="active" <?= (isset($userData->status) && $userData->status == 'active')?'selected':''; ?> >Active</option>            
+                                    <option value="inactive" <?= (isset($userData->status) && $userData->status == 'inactive')?'selected':''; ?> >Inactive</option>
                                   </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" value="<?php echo isset($userData->name)?$userData->name:'';?>" class="form-control" placeholder="Name">
+                                    <input type="text" name="name" value="<?= isset($userData->name)?$userData->name:'';?>" class="form-control" placeholder="Name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="email" value="<?php echo isset($userData->email)?$userData->email:'';?>" class="form-control" placeholder="Email">
+                                    <input type="text" name="email" value="<?= isset($userData->email)?$userData->email:'';?>" class="form-control" placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">User Type</label>
                                 <div class="col-sm-9">
-                                    <?php $u_type = isset($userData->user_type)?$userData->user_type:'';
-                                      $user_type = getAllDataByTable('permission');
-                                    ?>
                                     <select name="user_type" class="form-control" required>  
-                                    <?php foreach($user_type as $option){  $sel='';if(strtolower($option->user_type)==strtolower($u_type)){$sel="selected";}  
-                                      if(strtolower($option->user_type) != 'admin'){
-                                    ?>
-                                      <option  value="<?php echo $option->user_type;?>" <?php echo $sel; ?> ><?php echo ucfirst($option->user_type);?> </option>
-
-                                    <?php } }?>                   
+                                        <option value="admin" <?= (isset($userData->user_type) && $userData->user_type == 'admin')?'selected':''; ?>>Administrator</option>
+                                        <option value="instructor" <?= (isset($userData->user_type) && $userData->user_type == 'instructor')?'selected':''; ?>>Instructor</option>
+                                        <option value="author" <?= (isset($userData->user_type) && $userData->user_type == 'author')?'selected':''; ?>>Author</option>
+                                        <option value="editor" <?= (isset($userData->user_type) && $userData->user_type == 'editor')?'selected':''; ?>>Editor</option>
                                     </select>
                                 </div>
                             </div>
@@ -88,23 +83,18 @@
                             <div class="form-group row">
                                 <label class="col-md-3">Image Upload</label>
                                 <div class="col-sm-9 pic_size" id="image-holder">
-                                    <div class="fileUpload btn btn-success wdt-bg">
-                                        <span>Change Picture</span>
-                                        <?= form_upload('profilepic', '', array('required' => '', 'id' => 'fileUpload', 'class' => 'upload')); ?>
-                                        <br />
-                                        <input type="hidden" name="fileOld" value="<?= isset($user_data[0]->profile_pic)?$user_data[0]->profile_pic:'';?>" />
-                                    </div><br /><br />
+                                    <?= form_upload('profile_pic', '', array('class' => 'form-control')); ?>
+                                    <br /><br />
                                     <?php if(isset($userData->profile_pic) && file_exists('assets/image/user/'.$userData->profile_pic)){ 
                                       $profile_pic = $userData->profile_pic;
                                     }else{ 
                                       $profile_pic = 'user.png'; 
                                     } ?>
-                                    <left> <img class="thumb-image setpropileam" src="<?php echo base_url();?>/assets/image/user/<?php echo isset($profile_pic)?$profile_pic:'user.png';?>" alt="User profile picture"></left>
+                                    <left> <img class="thumb-image setpropileam" src="<?php echo base_url();?>/assets/image/user/<?php echo isset($profile_pic)?$profile_pic:'user.png';?>" alt="User profile picture" width="650px;"></left>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden"  name="users_id" value="<?php echo isset($userData->users_id)?$userData->users_id:'';?>">
-                        <!--input type="hidden" name="fileOld" value="<?php echo isset($userData->profile_pic)?$userData->profile_pic:'';?>"-->
                         <div class="border-top">
                             <div class="card-body">
                               <button type="submit" name="edit" value="edit" class="btn btn-success">Update</button>

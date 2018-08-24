@@ -32,7 +32,6 @@
                                 <thead>
                                     <tr>
                                         <th>ID Lesson</th>
-                                        <th>Lesson Badge</th>
                                         <th>Name Lesson</th>
                                         <th>Description</th>
                                         <th>Lesson URL</th>
@@ -44,7 +43,6 @@
                                     <?php foreach ($data_lesson as $lesson) { ?>
                                     <tr>
                                         <td><?= $lesson->id_course_lesson; ?></td>
-                                        <td><img width="100px" height="100px" src="<?= $lesson->course_lesson_badge; ?>" /></td>
                                         <td><?= $lesson->name_lesson; ?></td>
                                         <td><?= $lesson->description; ?></td>
                                         <td><?= $lesson->course_lesson_url; ?></td>

@@ -44,7 +44,6 @@ class Posts extends CI_Controller {
 		
 		if ($this->input->post())
 		{
-
 			$this->form_validation->set_rules('title', 'Post Title', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required|in_list[draft,published]');
 			$this->form_validation->set_rules('content', 'Post Content', 'required');
@@ -56,7 +55,7 @@ class Posts extends CI_Controller {
 			if ($this->input->post('url_title'))
 			{	
 				// yup, so lets validate that...
-				$this->form_validation->set_rules('url_title', 'Post Title', 'required|alpha_dash|is_unique[posts.url_title]');
+				$this->form_validation->set_rules('url_title', 'URL Title', 'required|alpha_dash|is_unique[posts.url_title]');
 				$build_slug = false;
 			}
 		}

@@ -3,18 +3,23 @@
 class QuestModel extends CI_Model {
 
     function getQuest($id_quest) {
-        return $this->db->get_where('lesson', array('id'=>$id_quest));
+        return $this->db->get_where('quest', array('id'=>$id_quest));
     }
 
     function getLectureQuest($id_lecture) {
-        return $this->db->get_where('lesson', array('id_lecture'=>$id_lecture));
+        return $this->db->get_where('quest', array('id_lecture'=>$id_lecture));
     }
 
     function getAllQuest() {
-        return $this->db->get('lesson');
+        return $this->db->get('quest');
     }
 
-    function getQuestPath($id_quest) {
+    public function remove_quest($id)
+    {       
+        return $this->db->delete('quest', ['id' => $id]);
+    }
+
+    /*function getQuestPath($id_quest) {
         return $this->db->get_where('lesson_detail', array('id'=>$id_quest));
     }
 
@@ -109,5 +114,5 @@ class QuestModel extends CI_Model {
         array_push($data, $data_quest);
 
         return json_encode($data);
-    }
+    }*/
 }

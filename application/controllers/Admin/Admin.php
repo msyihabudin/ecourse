@@ -6,6 +6,11 @@ class Admin extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('adminmodel');
+        // form helper
+        $this->load->helper('form');
+
+        // form validation
+        $this->load->library('form_validation');
         $this->user_id = isset($this->session->get_userdata()['user_details'][0]->id)?$this->session->get_userdata()['user_details'][0]->users_id:'1';
     }
 
@@ -18,7 +23,7 @@ class Admin extends CI_Controller {
     public function dashboard($id = '') {
         is_login();
         if(!isset($id) || $id == '') {
-            $id = $this->session->userdata('user_details')[0]->users_id;
+            $id = $this->session->get_userdata()['user_details'][0]->users_id;
         }
         $data['user_data'] = $this->adminmodel->getUsers($id);
         $data['title'] = "Dashboard";
@@ -28,6 +33,7 @@ class Admin extends CI_Controller {
     }
 
     public function account($id='') {
+        is_login();
         $data['title'] = "Admin Account";
         is_login();
         if(!isset($id) || $id == '') {
@@ -55,12 +61,15 @@ class Admin extends CI_Controller {
     public function auth_user($page =''){ 
         $return = $this->adminmodel->auth_user();
         if(empty($return)) { 
-            $this->session->set_flashdata('messagePr', 'Invalid details');  
+            $this->session->set_flashdata('messagePr', 'Invalid username or password!');  
             redirect(base_url().'admin/signin', 'refresh');  
         } else { 
             if($return == 'not_varified') {
                 $this->session->set_flashdata('messagePr', 'This accout is not varified. Please contact to your admin..');
                 redirect( base_url().'admin/signin', 'refresh');
+            } elseif ($return == 'invalid_user') {
+                $this->session->set_flashdata('messagePr', 'Invalid user. Please try again.');
+                redirect( base_url().'signin', 'refresh');
             } else {
                 $this->session->set_userdata('user_details',$return);
             }
@@ -71,7 +80,7 @@ class Admin extends CI_Controller {
     public function signout() {
         is_login();
         $this->session->unset_userdata('user_details');               
-        redirect( base_url().'admin', 'refresh');
+        redirect(base_url().'admin', 'refresh');
     }
 
     public function forgetpassword(){
@@ -355,5 +364,57 @@ class Admin extends CI_Controller {
     public function getVarificationCode(){        
         $pw = $this->randomString();   
         return $varificat_key = password_hash($pw, PASSWORD_DEFAULT); 
+    }
+
+    public function settings()
+    {
+        is_login();
+
+        $data['title'] = "Settings";
+        $this->mybreadcrumb->add('Home', base_url('admin'));
+        $this->mybreadcrumb->add('Settings', base_url('admin/settings'));
+        $data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        // do we have a submitted form?
+        if ($this->input->post())
+        {
+            // some fields aren't required, so we get the
+            // ones that are, and set form_validation
+            foreach ($this->adminmodel->get_required_settings() as $item)
+            {
+                $this->form_validation->set_rules($item->name, ucfirst($item->tab) . ' Tab - ' . ucwords(humanize($item->name)), 'required');
+            }
+
+            // form validation failed, send them back to 
+            // the form to fix whatever it was.
+            if ($this->form_validation->run() === FALSE)
+            {
+                // get the list of settings
+                $data = $this->adminmodel->get_settings_list();
+                $this->template->load('base_admin', 'admin/settings/index', $data);
+            }
+            // form_validation succeeded
+            // let's insert the new values
+            // and move on.
+            if ($this->adminmodel->update_settings())
+            {
+                $this->session->set_flashdata('success', 'Settings Updated Successfully');
+                redirect('admin/settings');
+            }
+            else
+            {
+                $data['message'] = "Settings Failed to Update.  Please try again.";
+                // get the list of settings
+                $data = $this->adminmodel->get_settings_list();
+                $this->template->load('base_admin', 'admin/settings/index', $data);
+            }
+        }
+        else
+        {
+            // get the list of settings
+            $data = $this->adminmodel->get_settings_list();
+
+            $this->template->load('base_admin', 'admin/settings/index', $data);
+        }
     }
 }

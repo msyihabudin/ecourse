@@ -40,7 +40,7 @@
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url().'/assets/image/user/'.$profile_pic;?>" alt="user" class="rounded-circle" width="31" height="31"></a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?= site_url('admin/account'); ?>"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                        <!--a class="dropdown-item" href="<?= site_url('admin/account'); ?>"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a-->
                         <div class="dropdown-divider"></div>
                         <a href="<?= site_url('admin/signout'); ?>" class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                     </div>
@@ -49,40 +49,73 @@
         </div>
     </nav>
 </header>
+
 <aside class="left-sidebar" data-sidebarbg="skin5">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav" class="p-t-30">
+                <?php
+                $usertype = $this->session->userdata('user_details')[0]->user_type;
+                if ($usertype == "admin" || $usertype == "instructor" || $usertype == "author" || $usertype == "editor") {
+                ?>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/dashboard'); ?>" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
+                <?php
+                } 
+                if ($usertype == "admin") {
+                ?>
+                <li class="sidebar-item"> 
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/orders'); ?>" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Orders</span></a>
+                </li>
+                <?php
+                } 
+                if ($usertype == "admin" || $usertype == "instructor") {
+                ?>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/courses'); ?>" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Courses</span></a>
-                </li>
+                </li>                
                 <li class="sidebar-item"> 
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/quest'); ?>" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Quest</span></a>
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/quest'); ?>" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Course Categories</span></a>
                 </li>
+                <?php
+                } 
+                if ($usertype == "admin" || $usertype == "author" ||  $usertype == "editor") {
+                ?>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/posts'); ?>" aria-expanded="false"><i class="mdi mdi-pencil"></i><span class="hide-menu">Posts</span></a>
                 </li>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/cats'); ?>" aria-expanded="false"><i class="mdi mdi-note-outline"></i><span class="hide-menu">Categories</span></a>
-                </li> 
+                </li>
+                <?php
+                } 
+                if ($usertype == "admin") {
+                ?>
                 <li class="sidebar-item"> 
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/user'); ?>" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">User</span></a>
+                </li>
+                <li class="sidebar-item"> 
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/settings'); ?>" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Settings</span></a>
+                </li>
+                <!--li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/pages'); ?>" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Pages</span></a>
                 </li>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?= site_url('admin/navigation'); ?>" aria-expanded="false"><i class="mdi mdi-relative-scale"></i><span class="hide-menu">Navigation</span></a>
-                </li>
-                <li class="sidebar-item"> 
+                </li-->
+                <!--li class="sidebar-item"> 
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Authentication </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="<?= site_url('admin/user'); ?>" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> User </span></a></li>
                         <li class="sidebar-item"><a href="<?= site_url('admin/account'); ?>" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Account </span></a></li>
                     </ul>
-                </li>
+                </li-->
+                <?php
+                } 
+                ?>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

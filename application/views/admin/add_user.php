@@ -20,56 +20,57 @@
                             <div class="form-group row">
                                 <label class="col-md-3">Status</label>
                                 <div class="col-sm-9">
-                                  <select name="status" id="" class="form-control">
+                                  <select name="status" class="form-control" required>
                                     <option value="active">Active</option>            
-                                    <option value="deleted">Deleted</option>
+                                    <option value="inactive">Inactive</option>
                                   </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3">Name</label>
+                                <label class="col-md-3">Fullname</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                    <input type="text" name="fullname" class="form-control" placeholder="Fullname" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3">Username</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="name" class="form-control" placeholder="Username" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="email" class="form-control" placeholder="Email">
+                                    <input type="text" name="email" class="form-control" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">User Type</label>
                                 <div class="col-sm-9">
-                                    <?php $u_type = isset($userData->user_type)?$userData->user_type:'';
-                                      $user_type = getAllDataByTable('permission');
-                                    ?>
                                     <select name="user_type" class="form-control" required>  
-                                    <?php foreach($user_type as $option){  $sel='';if(strtolower($option->user_type)==strtolower($u_type)){$sel="selected";}  
-                                      if(strtolower($option->user_type) != 'admin'){
-                                    ?>
-                                      <option  value="<?php echo $option->user_type;?>" <?php echo $sel; ?> ><?php echo ucfirst($option->user_type);?> </option>
-
-                                    <?php } }?>                   
+                                        <option value="admin">Administrator</option>
+                                        <option value="instructor">Instructor</option>
+                                        <option value="author">Author</option>
+                                        <option value="editor">Editor</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">Password</label>
                                 <div class="col-sm-9">
-                                    <input type="Password" name="password" class="form-control" value="" placeholder="Password" readonly onfocus="this.removeAttribute('readonly')">
+                                    <input type="Password" name="password" class="form-control" value="" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3">Confirm Password</label>
+                                <div class="col-sm-9">
+                                    <input type="Password" name="confirmpassword" class="form-control" value="" placeholder="Confirm Password" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3">Image Upload</label>
-                                <div class="col-sm-9 pic_size" id="image-holder">
-                                    <div class="custom-file">
-                                        <input id="fileUpload" class="upload custom-file-input" name="profile_pic" type="file" accept="image/*" /><br />
-                                        <input type="hidden" name="fileOld" value="<?php echo isset($user_data[0]->profile_pic)?$user_data[0]->profile_pic:'';?>" />
-                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                                    </div>
-                                    
+                                <div class="col-sm-9">
+                                    <?= form_upload('profile_pic', '', array('class' => 'form-control')); ?>                                  
                                 </div>
                             </div>
                         </div>                    

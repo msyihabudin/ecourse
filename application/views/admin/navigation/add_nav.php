@@ -61,6 +61,12 @@
 							<p class="help-block">Choose from existing blog posts.</p>
 							<?= form_dropdown('post', $post_slugs, '', 'class="form-control"'); ?>
 						</div>
+
+                        <div class="form-group">
+                            <label for="url">URI</label>
+                            <p class="help-block">This is the URI portion of your link. We automatically add your site's URL for you when generating links.</p>
+                            <?= form_input(['name' => 'url', 'class' => 'form-control', 'value' => set_value('url'), 'placeholder' => 'about   <-- example usage' ]) ?>
+                        </div>
 						<?= form_close();?>
                     </div>
                 </div>

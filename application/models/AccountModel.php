@@ -17,6 +17,7 @@ class AccountModel extends CI_Model {
                 'id_course' => $e->id_course,
                 'enroll_status' => $e->enroll_status,
                 'course_name' => $course[0]->course_name,
+                'description' => $course[0]->description,
                 'course_badge' => $course[0]->course_badge,
                 'enroll_url' => $course[0]->enroll_url
             );

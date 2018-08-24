@@ -11,15 +11,22 @@
                                     <li><div class="question">Have any questions?</div></li>
                                     <li>
                                         <i class="fa fa-phone" aria-hidden="true"></i>
-                                        <div>001-1234-88888</div>
+                                        <div>021-12121212</div>
                                     </li>
                                     <li>
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                        <div>info.deercreative@gmail.com</div>
+                                        <div>info@ecourse.com</div>
                                     </li>
                                 </ul>
                                 <div class="top_bar_login ml-auto">
-                                    <div class="login_button"><a href="#">Register or Login</a></div>
+                                    <div class="login_button">
+                                <?php if ($this->session->userdata('user_details') && $this->session->userdata('user_details')[0]->user_type == "student"){ ?>
+                                    <a href="<?= site_url('account'); ?>"><?= $this->session->userdata('user_details')[0]->fullname; ?>, </a>
+                                    <a href="<?= site_url('Users/signout'); ?>">&nbsp;Logout</a>
+                                <?php } else { ?>                                
+                                    <a href="<?= base_url('signin');?>">Register or Login</a>
+                                <?php } ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -35,24 +42,26 @@
                     <div class="col">
                         <div class="header_content d-flex flex-row align-items-center justify-content-start">
                             <div class="logo_container">
-                                <a href="#">
+                                <a href="<?= base_url(); ?>">
                                     <div class="logo_text">E<span>Course</span></div>
                                 </a>
                             </div>
                             <nav class="main_nav_contaner ml-auto">
                                 <ul class="main_nav">
-                                    <li class="active"><a href="<?= base_url();?>">Home</a></li>
-                                    <li><a href="<?= base_url('about');?>">About</a></li>
-                                    <li><a href="<?= base_url('courses');?>">Courses</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="#">Page</a></li>
-                                    <li><a href="<?= base_url('contact');?>">Contact</a></li>
+                                    <li class=""><a href="<?= base_url(); ?>">Home</a></li>
+                                    <li class=""><a href="<?= base_url('about'); ?>">About</a></li>
+                                    <li class=""><a href="<?= base_url('courses'); ?>">Courses</a></li>
+                                    <li class=""><a href="<?= base_url('blogs'); ?>">Blogs</a></li>
+                                    <li class=""><a href="<?= base_url('news'); ?>">News</a></li>
+                                    <li class=""><a href="<?= base_url('contact'); ?>">Contact</a></li>
                                 </ul>
-                                <div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
-                                <!-- Hamburger -->
-
-                                <div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                                <?php
+                                if ($this->session->userdata('user_details')) {
+                                ?>
+                                <!-- Hamburger -->                                
+                                <div class="shopping_cart"><a href="<?= base_url('checkout/'.$this->session->userdata('user_details')[0]->users_id);?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></div>
+                                <?php } ?>
                                 <div class="hamburger menu_mm">
                                     <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
                                 </div>

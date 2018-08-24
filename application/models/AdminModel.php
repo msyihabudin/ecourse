@@ -19,8 +19,11 @@ class AdminModel extends CI_Model {
             if (password_verify($password, $result[0]->password)) {       
                 if($result[0]->status != 'active') {
                     return 'not_varified';
+                } elseif ($result[0]->user_type == 'student') {
+                   return 'invalid_user';
+                } else {
+                    return $result;
                 }
-                return $result;                    
             }
             else {             
                 return false;
@@ -57,11 +60,11 @@ class AdminModel extends CI_Model {
 
     function getDashboard() {
         $select = array(
-            'count(user.id_user) as numUser'
+            'count(users.users_id) as numUser'
         );
         $user = $this->db
                         ->select($select)
-                        ->from('user')
+                        ->from('users')
                         ->get()
                         ->row_array();
 
@@ -75,11 +78,11 @@ class AdminModel extends CI_Model {
                         ->row_array();
 
         $select = array(
-            'count(lesson.id) as numQuest'
+            'count(course_lesson.id_course_lesson) as numQuest'
         );
         $quest = $this->db
                         ->select($select)
-                        ->from('lesson')
+                        ->from('course_lesson')
                         ->get()
                         ->row_array();
 
@@ -131,5 +134,72 @@ class AdminModel extends CI_Model {
     function getTemplate($code){
         $this->db->where('code', $code);
         return $this->db->get('templates')->row();
+    }
+
+    public function delete_user($id)
+    {       
+        return $this->db->delete('users', ['users_id' => $id]);
+    }
+
+    public function get_required_settings()
+    {
+        return $this->db->where('required', 1)->get('settings')->result();
+    }
+
+    public function get_settings_list()
+    {
+        // init data obj
+        $data = new stdClass();
+
+        // sort tabs
+        $tabs = $this->db->select('tab')->distinct()->get('settings')->result();
+
+        // foreach of those tabs, we get all
+        // options in that tab
+        foreach ($tabs as &$tab)
+        {
+            // get the list for the tab
+            $tab->list = $this->db->where('tab', $tab->tab)->get('settings')->result();
+
+            // foreach of the list items
+            foreach ($tab->list as &$item)
+            {
+                // we build the form field so we can just echo it 
+                // in the view
+                $item->input = $this->ecore->build_form_field($item->field_type, $item->name, $item->value, $item->options);
+            }
+        }
+
+        // load up the object with the info
+        $data->settings = $tabs;
+
+        // send it off
+        return $data;
+    }
+
+    public function update_settings()
+    {
+        // is there actually any post data?
+        if (!$this->input->post())
+        {
+            // nope, fail
+            return FALSE;
+        }
+
+        // there is, so we'll check the db for that $k
+        foreach ($this->input->post() as $k => $v)
+        {
+            // does $k exist in the db?
+            // if so, update it.
+            if (! $this->db->where('name', $k)->update('settings', ['value' => $v]))
+            {
+                // no, someone adding stuff to the
+                // post()?  fail and bail!
+                return false;
+            }
+        }
+
+        // something's gone wrong, fail and bail
+        return false;
     }
 }

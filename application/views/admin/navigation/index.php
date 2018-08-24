@@ -32,7 +32,7 @@
                                             <?= $nav->title ?> 
                                             <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                             <a href="<?= base_url($nav->url) ?>" target="_blank" class="btn btn-default btn-xs">View</a> 
-                                            <a href="<?= base_url('admin/navigation/edit/' . $nav->id) ?>" class="btn btn-default btn-xs">Edit</a> 
+                                            <a href="<?= base_url('admin/navigation/edit_nav/' . $nav->id) ?>" class="btn btn-default btn-xs">Edit</a> 
                                             <a href="<?= base_url('admin/navigation/remove_nav/' . $nav->id) ?>" class="btn btn-danger btn-xs">Delete</a> 
 
                                             <!--i class="fa fa-bars pull-right" aria-hidden="true"></i-->

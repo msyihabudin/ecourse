@@ -113,8 +113,10 @@ class ECore
 
 
 
-		public function build_form_field($field_type, $name, $cur_val, $options=null)
+	public function build_form_field($field_type, $name, $cur_val, $options=null)
 	{
+		$this->ci->load->helper('language');
+
 		if ($field_type == 'radio')
 		{
 			$radio = '';
@@ -133,7 +135,7 @@ class ECore
 						'class'		=> 'form-control',
 						'checked'	=> $checked
 					];
-					$radio .= '<label>' . form_radio($data) . ' ' . lang($parts[1]) . '</label><br>';
+					$radio .= '<label>' . form_radio($data) . ' ' . $parts[1] . '</label><br>';
 				}
 
 			}
@@ -161,7 +163,7 @@ class ECore
 					// if $parts[0] is not numeric we run it through the
 					// language filter to get the text value in language file
 					// otherwise, we return it unhindered as a number
-					$form_opts[$parts[0]] = ( ! is_numeric($parts[1])) ? lang($parts[1]) : $parts[1];
+					$form_opts[$parts[0]] = ( ! is_numeric($parts[1])) ? $parts[1] : $parts[1];
 
 					// if they've tried to submit the new value
 					// but validation failed, we'll repopulate
